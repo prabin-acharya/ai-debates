@@ -4,17 +4,17 @@ import type { NextRequest } from "next/server";
 export const runtime = "edge";
 
 export async function GET(request: NextRequest) {
-  //   let responseText = "Hello World";
-
+  console.log("--------------------------");
   const db = getRequestContext().env.DB;
-  //   const ps = db.prepare("SELECT * from users");
+  console.log(db);
+  console.log("+++++++++++++===");
 
   const { results } = await db
     .prepare("SELECT * FROM Customers WHERE CompanyName = ?")
     .bind("Bs Beverages")
     .all();
 
-  return Response.json(results);
+  console.log(results);
 
-  //   return new Response(responseText);
+  return Response.json(results);
 }
