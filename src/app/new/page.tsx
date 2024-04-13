@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function NewDebate() {
   const [debateTitle, setDebateTitle] = useState("");
-  const [debateId, setDebateId] = useState(null);
+  const [debateId, setDebateId] = useState("testing123");
   const [isDebateLoading, setIsDebateLoading] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [createButtonClicked, setCreateButtonClicked] = useState(false);
@@ -30,7 +30,7 @@ export default function NewDebate() {
       setIsDebateLoading(true);
       append1({
         role: "user",
-        content: "who are you? who developed you??",
+        content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Steve Jobs and make your argument. You are playing the character of Steve Jobs. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 60 words). Begin your argument:`,
       });
     } catch (error) {
       console.error(error);
@@ -63,7 +63,11 @@ export default function NewDebate() {
     console.log("1 finish", message);
     append2({
       role: "user",
-      content: "who are you? who developed you??",
+      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Elon Musk and make your argument. You are playing the character of Elon Musk. Go direct to the point, pick a side and make your case. Say it in the tone of how Elon Musk speaks.
+      Here are the arguments made by previous participants:
+      Steve Jobs: ${message.content}
+      Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
+      (keep it short, less than 60 words). Begin your argument:`,
     });
   };
 
@@ -73,12 +77,12 @@ export default function NewDebate() {
 
   // AI debate agents
   const { messages: messages1, append: append1 } = useChat({
-    api: "/api/chat/anthropic",
+    api: "/api/chat/openai",
     onFinish: onFinish1,
   });
 
   const { messages: messages2, append: append2 } = useChat({
-    api: "/api/chat/openai",
+    api: "/api/chat/anthropic",
     onFinish: onFinish2,
   });
 
@@ -128,14 +132,50 @@ export default function NewDebate() {
         {/* )} */}
 
         {/*  */}
-        <p className="font-bold text-lg">Debates</p>
+        <div className="px-2">
+          <p className="font-bold text-lg mb-3">Debates</p>
 
-        <p className="my-3 text-orange-800">
-          {messages1[1] && messages1[1].content}
-        </p>
-        <p className="my-3 text-green-800">
-          {messages2[1] && messages2[1].content}
-        </p>
+          <div className="px-4">
+            {/*  */}
+
+            {messages1[1] && (
+              <div className="w-full items-start">
+                <div className="bg-blue-200 px-3 rounded-md w-9/12 mb-4">
+                  <span className="font-semibold text-sm m-0 pt-1">
+                    STEVE JOBS
+                  </span>
+                  <p className=" text-black">
+                    {messages1[1].content}
+                    {/* Free speech is the cornerstone of a democratic society,
+                    fundamental to individual autonomy, societal progress, and
+                    the exchange of ideas. Dating back to the Enlightenment era
+                    and enshrined in documents like the First Amendment to the
+                    United States Constitutio */}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {messages2[1] && (
+              <div className="w-full flex flex-col items-end ">
+                <div className="bg-green-200 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
+                  <span className="font-semibold text-sm m-0 pt-1">
+                    ELON MUSK
+                  </span>
+                  <p className=" text-black">
+                    {messages2[1].content}
+                    {/* Central to the argument for free speech is the belief that
+                  allowing diverse perspectives to be heard fosters innovation,
+                  intellectual growth, and the discovery of truth. By engaging
+                  in open dialogue and debate, society can identify and
+                  challenge prevailing norms, question authority, and address
+                  injustices. */}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
