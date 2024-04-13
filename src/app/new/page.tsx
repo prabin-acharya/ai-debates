@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 export default function NewDebate() {
   const [debateTitle, setDebateTitle] = useState("");
   const [debateId, setDebateId] = useState(null);
-  const [isDebateLoading, setIsDebateLoading] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [createButtonClicked, setCreateButtonClicked] = useState(false);
 
@@ -46,11 +45,10 @@ export default function NewDebate() {
         debateTitle,
       });
 
-      console.log(response.data, "debateId from remote");
+      console.log(response.data.debateId, "debateId from remote");
       // set debate Id---------------
       setDebateId(response.data.debateId);
 
-      setIsDebateLoading(true);
       append1({
         role: "user",
         content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Steve Jobs and make your argument. You are playing the character of Steve Jobs. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
