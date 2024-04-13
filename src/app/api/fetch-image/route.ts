@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   console.log("--------------------------");
   const myBucket = getRequestContext().env.R2_BUCKET;
 
-  const object = await myBucket.get("prabinpng3");
+  const object = await myBucket.get("prabinpng33");
 
   if (object === null) {
     return new Response("Object Not Found", { status: 404 });
