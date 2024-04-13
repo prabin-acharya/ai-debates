@@ -16,6 +16,8 @@ export default function NewDebate() {
   const [message2Finish, setMessage2Finish] = useState("");
   const [message3Finish, setMessage3Finish] = useState("");
 
+  console.log(debateId);
+
   const saveAgentsArgument = async (agentName: string, argument: string) => {
     console.log(debateId);
     if (!debateId) {
