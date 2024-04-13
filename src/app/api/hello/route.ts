@@ -22,5 +22,5 @@ export async function GET(request: NextRequest) {
   // const suffix = await myKv.get('suffix')
   // responseText += suffix
 
-  return Response.json({ hello: "world" });
+  return Response.json({ hello: "world", userIdInCookie: userId || "nope" });
 }
