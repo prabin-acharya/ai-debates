@@ -54,11 +54,9 @@ export async function GET(request: NextRequest) {
     offset += chunk.length;
   }
 
-  const save = await myBucket.put("prabinpng33", imageData.buffer);
-
-  // {
-  //   metadata: { contentType: "image/png" },
-  // }
+  const save = await myBucket.put("prabin333", imageData.buffer, {
+    metadata: { contentType: "image/png" },
+  });
 
   // console.log(save);
   // const save = await myBucket.put("prabin22", response);
