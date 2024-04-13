@@ -10,6 +10,10 @@ binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "ai-debates-d1-prod"
 database_id = "f721471d-3345-4849-9ceb-f4c9fb46d1aa"
 
+[[r2_buckets]]
+binding = 'R2_BUCKET' # <~ valid JavaScript variable name
+bucket_name = 'ai-debates-images'
+
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/pages/functions/bindings/#environment-variables

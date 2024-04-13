@@ -2,6 +2,7 @@
 // by running `wrangler types --env-interface CloudflareEnv env.d.ts`
 
 interface CloudflareEnv {
+  R2_BUCKET: any;
   DB: D1Database;
   AI: any;
 }
