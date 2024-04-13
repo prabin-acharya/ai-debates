@@ -26,10 +26,15 @@ export async function GET(request: NextRequest) {
 // generate and save image to R2
 export async function POST(request: NextRequest) {
   console.log("--------------------------");
+
+  const data: any = await request.json();
+  const debateTitle = data.debateTitle;
+
+  // generate image
   const ai = getRequestContext().env.AI;
 
   const inputs = {
-    prompt: "AI acceleration vs AI Safety",
+    prompt: debateTitle,
   };
 
   const response = await ai.run(
@@ -37,9 +42,41 @@ export async function POST(request: NextRequest) {
     inputs
   );
 
-  return new Response(response, {
-    headers: {
-      "content-type": "image/png",
-    },
+  // save image
+
+  // Create a ReadableStream reader
+  const reader = response.getReader();
+  const chunks = [];
+  let totalBytes = 0;
+
+  // Read the data from the ReadableStream and calculate total bytes
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    totalBytes += value.length;
+  }
+
+  // Concatenate the data chunks into a single Uint8Array
+  const imageData = new Uint8Array(totalBytes);
+  let offset = 0;
+  for (const chunk of chunks) {
+    imageData.set(chunk, offset);
+    offset += chunk.length;
+  }
+
+  const myBucket = getRequestContext().env.R2_BUCKET;
+  const key = data.debateId;
+
+  const save = await myBucket.put(key, imageData.buffer, {
+    metadata: { contentType: "image/png" },
   });
+
+  return Response.json({ success: true, key, save });
+
+  //   return new Response(response, {
+  //     headers: {
+  //       "content-type": "image/png",
+  //     },
+  //   });
 }
