@@ -57,11 +57,6 @@ export default function NewDebate() {
       });
     } catch (error) {
       console.error(error);
-    } finally {
-      saveAgentsArgument(
-        "STEVE JOBS22",
-        "this is a test argument manually sent after finally"
-      );
     }
   };
 
@@ -90,7 +85,7 @@ export default function NewDebate() {
   // AI AGENTS ######################################################################
 
   const onFinish1 = (message: Message) => {
-    console.log("1 finish", message);
+    console.log("1 finish", debateId, message);
 
     setMessage1Finish(message.content);
     saveAgentsArgument("STEVE JOBS", message.content);
