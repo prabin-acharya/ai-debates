@@ -13,6 +13,8 @@ export async function POST(req: Request) {
   // Extract the `prompt` from the body of the request
   const { messages }: any = await req.json();
 
+  console.log("anthropic", messages);
+
   // Ask Claude for a streaming chat completion given the prompt
   const response = await anthropic.messages.create({
     messages,

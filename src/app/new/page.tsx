@@ -13,6 +13,10 @@ export default function NewDebate() {
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [createButtonClicked, setCreateButtonClicked] = useState(false);
 
+  const [message1Finish, setMessage1Finish] = useState("");
+  const [message2Finish, setMessage2Finish] = useState("");
+  const [message3Finish, setMessage3Finish] = useState("");
+
   const createDebate = async () => {
     if (debateTitle.length > 5) {
       setCreateButtonClicked(true);
@@ -62,12 +66,14 @@ export default function NewDebate() {
   const onFinish1 = (message: Message) => {
     console.log("1 finish", message);
 
+    setMessage1Finish(message.content);
+
     setTimeout(function () {
       append2({
         role: "user",
         content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Elon Musk and make your argument. You are playing the character of Elon Musk. Go direct to the point, pick a side and make your case. Say it in the tone of how Elon Musk speaks.
       Here are the arguments made by previous participants:
-      Steve Jobs: ${message.content}
+      Steve Jobs: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
       (keep it short, less than 80 words). Begin your argument:`,
       });
@@ -76,11 +82,27 @@ export default function NewDebate() {
 
   const onFinish2 = (message: Message) => {
     console.log("2 finish", message);
+
+    setMessage2Finish(message.content);
+
+    append3({
+      role: "user",
+      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like a very talented Economist and make your argument. You share your perspective as economist and try to add to the discussions. You are playing the character of a very talented Economist. You take a broad view at the world. Use some language of economist but it should be understandable by general public. Go direct to the point, pick a side and make your case. Say it in the tone of how an Economist speaks.
+      Here are the arguments made by previous participants:
+      Steve Jobs: ${message1Finish || ""}
+      Elon Musk: ${message.content || ""}
+      Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
+      (keep it short, less than 80 words). Begin your argument:`,
+    });
+  };
+
+  const onFinish3 = (message: Message) => {
+    console.log("2 finish", message);
   };
 
   // AI debate agents
   const { messages: messages1, append: append1 } = useChat({
-    api: "/api/chat/openai",
+    api: "/api/chat/mistral",
     onFinish: onFinish1,
   });
 
@@ -89,7 +111,10 @@ export default function NewDebate() {
     onFinish: onFinish2,
   });
 
-  console.log(createButtonClicked);
+  const { messages: messages3, append: append3 } = useChat({
+    api: "/api/chat/openai",
+    onFinish: onFinish3,
+  });
 
   return (
     <div className="h-full min-h-screen border-4 border-red-300">
@@ -173,6 +198,24 @@ export default function NewDebate() {
                   in open dialogue and debate, society can identify and
                   challenge prevailing norms, question authority, and address
                   injustices. */}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {messages3[1] && (
+              <div className="w-full items-start">
+                <div className="bg-violet-300 px-3 rounded-md w-9/12 mb-4">
+                  <span className="font-semibold text-sm m-0 pt-1">
+                    ECONOMIST
+                  </span>
+                  <p className=" text-black">
+                    {messages3[1].content}
+                    {/* Free speech is the cornerstone of a democratic society,
+                    fundamental to individual autonomy, societal progress, and
+                    the exchange of ideas. Dating back to the Enlightenment era
+                    and enshrined in documents like the First Amendment to the
+                    United States Constitutio */}
                   </p>
                 </div>
               </div>

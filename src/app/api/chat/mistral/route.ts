@@ -12,6 +12,8 @@ export async function POST(req: NextRequest) {
   const resJson: any = await req.json();
   let messages: any = resJson["messages"];
 
+  console.log("mistral", messages);
+
   const ai = new Ai(getRequestContext().env.AI);
   const stream = (await ai.run("@cf/mistral/mistral-7b-instruct-v0.1", {
     messages,
