@@ -1,17 +1,83 @@
 "use client";
 
-import Image from "next/image";
+import { useChat } from "ai/react";
+import { useEffect, useState } from "react";
 
-export default function Chat() {
+interface Debate {
+  _id: string;
+  userId: string;
+  title: string;
+  createdAt: string;
+}
+
+export default function Home() {
+  const [debates, setDebates] = useState<Debate[]>([]);
+
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    api: "/api/chat/anthropic",
+  });
+
+  useEffect(() => {
+    const fetchDebates = async () => {
+      try {
+        const response = await fetch("/api/getAllDebates");
+        const data: any = await response.json();
+        setDebates(data.result);
+      } catch (error) {
+        console.error("Error fetching debates:", error);
+      }
+    };
+
+    fetchDebates();
+  }, []);
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      <h1 className="text-2xl">Ai Debates</h1>
-      <Image
-        src="https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/GH9xBkbWUAAeMYB.jpeg"
-        width={500}
-        height={500}
-        alt="apple"
-      />
-    </div>
+    <main className="flex min-h-screen flex-col bg-orange-100">
+      <div className="w-2/3 mx-auto">
+        <nav className="border border-blue-500 flex items-center p-1 justify-between">
+          <h1 className="font-bold text-2xl text-red-500">Ai debates</h1>
+
+          <div className="flex flex-row-reverse ">
+            <button
+              // onClick={()=>()}
+              className="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Add Debate
+            </button>
+            {/* <DebateForm /> */}
+          </div>
+        </nav>
+
+        <div className="border-2 border-red-950">
+          <div className="flex flex-wrap ">
+            {debates.map((debate) => (
+              <div
+                key={debate._id}
+                className="bg-gray-200 p-4 m-2 rounded-md inline-block"
+              >
+                {debate.title}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* <div> */}
+        {/* {messages.map((m) => (
+          <div key={m.id}>
+            {m.role === "user" ? "User: " : "AI: "}
+            {m.content}
+          </div>
+        ))} */}
+
+        {/* <form onSubmit={handleSubmit}>
+          <input
+            value={input}
+            placeholder="Say something..."
+            onChange={handleInputChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </form> */}
+        {/* </div> */}
+      </div>
+    </main>
   );
 }
