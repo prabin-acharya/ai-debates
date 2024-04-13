@@ -3,14 +3,14 @@
 import { Message } from "ai";
 import { useChat } from "ai/react";
 import axios from "axios";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function NewDebate() {
   const [debateTitle, setDebateTitle] = useState("");
   const [debateId, setDebateId] = useState(null);
   const [isDebateLoading, setIsDebateLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState(false);
-  const [imageLoading, setImageLoading] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
   const [createButtonClicked, setCreateButtonClicked] = useState(false);
 
   const createDebate = async () => {
@@ -41,19 +41,21 @@ export default function NewDebate() {
     if (!debateId || !debateTitle) return;
 
     try {
-      setImageLoading(true);
+      setIsImageLoading(true);
 
       const response = await axios.post("/api/image/", {
-        debateId: "3",
+        debateId: "prabin-test-debateId",
         debateTitle,
       });
 
-      console.log(response.data);
+      console.log("image response", response.data);
       // setImageUrl(response.data.imageUrl);
+
+      setIsImageLoading(false);
     } catch (err) {
       console.log(err);
     } finally {
-      setImageLoading(false);
+      setIsImageLoading(false);
     }
   };
 
@@ -79,6 +81,8 @@ export default function NewDebate() {
     api: "/api/chat/openai",
     onFinish: onFinish2,
   });
+
+  console.log(createButtonClicked);
 
   return (
     <div className="h-full min-h-screen border-4 border-red-300">
@@ -111,13 +115,25 @@ export default function NewDebate() {
           )}
         </div>
 
+        {/* {createButtonClicked && ( */}
+        <div className="relative h-52 w-4/5 m-auto">
+          <Image
+            layout="fill"
+            objectFit="cover"
+            className="absolute inset-0 rounded-xl"
+            src="https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/prabin333"
+            alt={debateTitle}
+          />
+        </div>
+        {/* )} */}
+
         {/*  */}
         <p className="font-bold text-lg">Debates</p>
-        {/* openai */}
-        {messages1[1] && messages1[1].content}
 
-        {/* anthropic */}
-        <p className="my-3 text-green-900">
+        <p className="my-3 text-orange-800">
+          {messages1[1] && messages1[1].content}
+        </p>
+        <p className="my-3 text-green-800">
           {messages2[1] && messages2[1].content}
         </p>
       </div>
