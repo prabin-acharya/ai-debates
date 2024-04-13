@@ -12,11 +12,14 @@ export async function GET(request: NextRequest) {
   return Response.json(results);
 }
 
+// save arguments
 export async function POST(request: NextRequest) {
   const data: any = await request.json();
   const debateId = data.debateId;
   const agentName = data.agentName;
   const argument = data.argument;
+
+  console.log(debateId);
 
   const db = getRequestContext().env.DB;
 
@@ -39,7 +42,7 @@ async function createUsersTable(db: any) {
         `
       CREATE TABLE IF NOT EXISTS Arguments (
         argumentId SERIAL PRIMARY KEY,
-        debateId INT NOT NULL,
+        debateId VARCHAR(20) NOT NULL,
         agentName VARCHAR(255),
         argument TEXT NOT NULL,
         createdDateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
