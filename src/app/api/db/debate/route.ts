@@ -45,7 +45,7 @@ async function createDebatesTable(db: any) {
       CREATE TABLE IF NOT EXISTS Debates (
         debateId VARCHAR(20) PRIMARY KEY,
         userId VARCHAR(20),
-        title VARCHAR(255)
+        title VARCHAR(255),
         createdDateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         CONSTRAINT fk_user
             FOREIGN KEY(userId)
