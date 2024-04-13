@@ -23,11 +23,11 @@ export default function NewDebate() {
     }
 
     try {
-      const response = await axios.post("/api/db/debate", {
-        title: debateTitle,
-      });
+      // const response = await axios.post("/api/db/debate", {
+      //   title: debateTitle,
+      // });
 
-      console.log(response.data);
+      // console.log(response.data);
       // set debate Id---------------
       // setDebateId(response.data.debateId)
 
@@ -68,16 +68,16 @@ export default function NewDebate() {
 
     setMessage1Finish(message.content);
 
-    setTimeout(function () {
-      append2({
-        role: "user",
-        content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Elon Musk and make your argument. You are playing the character of Elon Musk. Go direct to the point, pick a side and make your case. Say it in the tone of how Elon Musk speaks.
+    // setTimeout(function () {
+    append2({
+      role: "user",
+      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Elon Musk and make your argument. You are playing the character of Elon Musk. Go direct to the point, pick a side and make your case. Say it in the tone of how Elon Musk speaks.
       Here are the arguments made by previous participants:
       Steve Jobs: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
       (keep it short, less than 80 words). Begin your argument:`,
-      });
-    }, 1000);
+    });
+    // }, 1000);
   };
 
   const onFinish2 = (message: Message) => {
@@ -87,7 +87,7 @@ export default function NewDebate() {
 
     append3({
       role: "user",
-      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like a very talented Economist and make your argument. You share your perspective as economist and try to add to the discussions. You are playing the character of a very talented Economist. You take a broad view at the world. Use some language of economist but it should be understandable by general public. Go direct to the point, pick a side and make your case. Say it in the tone of how an Economist speaks.
+      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like a very talented Economist and make your argument. You share your perspective as economist and try to add to the discussions. You are playing the character of a very talented Economist. You take a broad view at the world. Use some language of economist but it should be understandable by general public. Go direct to the point, pick a side and make your case. Present your argument in the tone of how an economist speaks. But, DO NOT  mention that you are an economist. Do NOT say anywhere that you are an economist. 
       Here are the arguments made by previous participants:
       Steve Jobs: ${message1Finish || ""}
       Elon Musk: ${message.content || ""}
@@ -97,12 +97,29 @@ export default function NewDebate() {
   };
 
   const onFinish3 = (message: Message) => {
+    console.log("3 finish", message);
+
+    setMessage3Finish(message.content);
+
+    append4({
+      role: "user",
+      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like the philosopher Socrates and make your arguments in his language, writing style, tone. Go direct to the point, pick a side and make your case. But, DO NOT  mention that you are socrates.
+      Here are the arguments made by previous participants:
+      Steve Jobs: ${message1Finish || ""}
+      Elon Musk: ${message2Finish || ""}
+      Economist: ${message.content || ""}
+      Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
+      (keep it short, less than 80 words). Begin your argument:`,
+    });
+  };
+
+  const onFinish4 = (message: Message) => {
     console.log("2 finish", message);
   };
 
   // AI debate agents
   const { messages: messages1, append: append1 } = useChat({
-    api: "/api/chat/mistral",
+    api: "/api/chat/llama",
     onFinish: onFinish1,
   });
 
@@ -114,6 +131,11 @@ export default function NewDebate() {
   const { messages: messages3, append: append3 } = useChat({
     api: "/api/chat/openai",
     onFinish: onFinish3,
+  });
+
+  const { messages: messages4, append: append4 } = useChat({
+    api: "/api/chat/llama13",
+    onFinish: onFinish4,
   });
 
   return (
@@ -185,7 +207,7 @@ export default function NewDebate() {
             )}
 
             {messages2[1] && (
-              <div className="w-full flex flex-col items-end ">
+              <div className="w-full flex flex-col items-end mb-4">
                 <div className="bg-green-200 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
                   <span className="font-semibold text-sm m-0 pt-1">
                     ELON MUSK
@@ -207,7 +229,7 @@ export default function NewDebate() {
               <div className="w-full items-start">
                 <div className="bg-violet-300 px-3 rounded-md w-9/12 mb-4">
                   <span className="font-semibold text-sm m-0 pt-1">
-                    ECONOMIST
+                    SOCRATES
                   </span>
                   <p className=" text-black">
                     {messages3[1].content}
@@ -217,6 +239,17 @@ export default function NewDebate() {
                     and enshrined in documents like the First Amendment to the
                     United States Constitutio */}
                   </p>
+                </div>
+              </div>
+            )}
+
+            {messages4[1] && (
+              <div className="w-full flex flex-col items-end mb-4">
+                <div className="bg-fuchsia-300 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
+                  <span className="font-semibold text-sm m-0 pt-1">
+                    ECONOMIST
+                  </span>
+                  <p className=" text-black">{messages4[1].content}</p>
                 </div>
               </div>
             )}

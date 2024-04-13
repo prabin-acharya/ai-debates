@@ -10,6 +10,7 @@ const anthropic = new Anthropic({
 export const runtime = "edge";
 
 export async function POST(req: Request) {
+  console.log("+++++++++++++++");
   // Extract the `prompt` from the body of the request
   const { messages }: any = await req.json();
 
