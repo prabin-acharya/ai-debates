@@ -30,7 +30,7 @@ export default function NewDebate() {
       setIsDebateLoading(true);
       append1({
         role: "user",
-        content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Steve Jobs and make your argument. You are playing the character of Steve Jobs. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 60 words). Begin your argument:`,
+        content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Steve Jobs and make your argument. You are playing the character of Steve Jobs. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
       });
     } catch (error) {
       console.error(error);
@@ -61,14 +61,17 @@ export default function NewDebate() {
 
   const onFinish1 = (message: Message) => {
     console.log("1 finish", message);
-    append2({
-      role: "user",
-      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Elon Musk and make your argument. You are playing the character of Elon Musk. Go direct to the point, pick a side and make your case. Say it in the tone of how Elon Musk speaks.
+
+    setTimeout(function () {
+      append2({
+        role: "user",
+        content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Elon Musk and make your argument. You are playing the character of Elon Musk. Go direct to the point, pick a side and make your case. Say it in the tone of how Elon Musk speaks.
       Here are the arguments made by previous participants:
       Steve Jobs: ${message.content}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
-      (keep it short, less than 60 words). Begin your argument:`,
-    });
+      (keep it short, less than 80 words). Begin your argument:`,
+      });
+    }, 1000);
   };
 
   const onFinish2 = (message: Message) => {
