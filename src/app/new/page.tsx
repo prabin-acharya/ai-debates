@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function NewDebate() {
   const [debateTitle, setDebateTitle] = useState("");
-  const [debateId, setDebateId] = useState("testing123");
+  const [debateId, setDebateId] = useState(null);
   const [isDebateLoading, setIsDebateLoading] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const [createButtonClicked, setCreateButtonClicked] = useState(false);
@@ -18,6 +18,11 @@ export default function NewDebate() {
   const [message3Finish, setMessage3Finish] = useState("");
 
   const saveAgentsArgument = async (agentName: string, argument: string) => {
+    console.log(debateId);
+    if (!debateId) {
+      return;
+    }
+
     try {
       const response = await axios.post("/api/db/arguments", {
         debateId,
@@ -52,6 +57,11 @@ export default function NewDebate() {
       });
     } catch (error) {
       console.error(error);
+    } finally {
+      saveAgentsArgument(
+        "STEVE JOBS22",
+        "this is a test argument manually sent after finally"
+      );
     }
   };
 
