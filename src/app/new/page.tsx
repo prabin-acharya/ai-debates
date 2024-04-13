@@ -20,26 +20,29 @@ export default function NewDebate() {
 
   useEffect(() => {
     console.log(debateId, "message1Finish");
+
+    const saveAgentsArgument = async (agentName: string, argument: string) => {
+      console.log(debateId);
+      if (!debateId) {
+        return;
+      }
+
+      try {
+        const response = await axios.post("/api/db/arguments", {
+          debateId,
+          agentName,
+          argument,
+        });
+
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (debateId && message1Finish.length > 1)
+      saveAgentsArgument("STEVE JOBS", message1Finish);
   }, [message1Finish, debateId]);
-
-  const saveAgentsArgument = async (agentName: string, argument: string) => {
-    console.log(debateId);
-    if (!debateId) {
-      return;
-    }
-
-    try {
-      const response = await axios.post("/api/db/arguments", {
-        debateId,
-        agentName,
-        argument,
-      });
-
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const createDebate = async () => {
     if (debateTitle.length > 5) {
@@ -92,7 +95,7 @@ export default function NewDebate() {
     console.log("1 finish", debateId, message);
 
     setMessage1Finish(message.content);
-    saveAgentsArgument("STEVE JOBS", message.content);
+    // saveAgentsArgument("STEVE JOBS", message.content);
 
     append2({
       role: "user",
