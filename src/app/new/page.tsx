@@ -18,6 +18,10 @@ export default function NewDebate() {
 
   console.log(debateId);
 
+  useEffect(() => {
+    console.log(debateId, "message1Finish");
+  }, [message1Finish, debateId]);
+
   const saveAgentsArgument = async (agentName: string, argument: string) => {
     console.log(debateId);
     if (!debateId) {
