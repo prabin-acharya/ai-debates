@@ -66,7 +66,7 @@ async function createUsersTable(db: any) {
     await db
       .prepare(
         `
-      CREATE TABLE Users (
+      CREATE TABLE IF NOT EXISTS Users (
         userId VARCHAR(20) PRIMARY KEY,
         createdDateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         name VARCHAR(255)

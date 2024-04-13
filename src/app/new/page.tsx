@@ -17,19 +17,33 @@ export default function NewDebate() {
   const [message2Finish, setMessage2Finish] = useState("");
   const [message3Finish, setMessage3Finish] = useState("");
 
+  const saveAgentsArgument = async (agentName: string, argument: string) => {
+    try {
+      const response = await axios.post("/api/db/arguments", {
+        debateId,
+        agentName,
+        argument,
+      });
+
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const createDebate = async () => {
     if (debateTitle.length > 5) {
       setCreateButtonClicked(true);
     }
 
     try {
-      // const response = await axios.post("/api/db/debate", {
-      //   title: debateTitle,
-      // });
+      const response = await axios.post("/api/db/debate", {
+        debateTitle,
+      });
 
-      // console.log(response.data);
+      console.log(response.data, "debateId from remote");
       // set debate Id---------------
-      // setDebateId(response.data.debateId)
+      setDebateId(response.data.debateId);
 
       setIsDebateLoading(true);
       append1({
@@ -67,8 +81,8 @@ export default function NewDebate() {
     console.log("1 finish", message);
 
     setMessage1Finish(message.content);
+    saveAgentsArgument("STEVE JOBS", message.content);
 
-    // setTimeout(function () {
     append2({
       role: "user",
       content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Elon Musk and make your argument. You are playing the character of Elon Musk. Go direct to the point, pick a side and make your case. Say it in the tone of how Elon Musk speaks.
@@ -77,13 +91,13 @@ export default function NewDebate() {
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
       (keep it short, less than 80 words). Begin your argument:`,
     });
-    // }, 1000);
   };
 
   const onFinish2 = (message: Message) => {
     console.log("2 finish", message);
 
     setMessage2Finish(message.content);
+    // saveAgentsArgument("Elon Musk", message.content);
 
     append3({
       role: "user",

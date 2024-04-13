@@ -6,6 +6,10 @@ export const runtime = "edge";
 export async function GET(request: NextRequest) {
   let responseText = "Hello World";
 
+  const userId = request.cookies.get("userId");
+
+  console.log(userId, "$$$$@");
+
   // In the edge runtime you can use Bindings that are available in your application
   // (for more details see:
   //    - https://developers.cloudflare.com/pages/framework-guides/deploy-a-nextjs-site/#use-bindings-in-your-nextjs-application

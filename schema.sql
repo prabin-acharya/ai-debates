@@ -12,3 +12,7 @@ CREATE TABLE Users (
 
 -- npx wrangler d1 execute ai-debates-d1-prod --remote --command="SELECT * FROM Customers"
 -- npx wrangler d1 execute ai-debates-d1-prod --remote --file=./schema.sql
+
+
+-- wrangler d1 execute d1-example --remote --command "SELECT name FROM sqlite_schema WHERE type ='table'"
+
