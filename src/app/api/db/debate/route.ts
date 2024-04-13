@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
 
 // save new Debate
 export async function POST(request: NextRequest) {
-  const userId = request.cookies.get("userId");
+  const userId = request.cookies.get("userId")?.value;
 
   const data: any = await request.json();
   console.log(data, userId, "++++");

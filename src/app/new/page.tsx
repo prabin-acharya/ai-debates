@@ -77,6 +77,8 @@ export default function NewDebate() {
     }
   };
 
+  // AI AGENTS ######################################################################
+
   const onFinish1 = (message: Message) => {
     console.log("1 finish", message);
 

@@ -6,7 +6,7 @@ export const runtime = "edge";
 export async function GET(request: NextRequest) {
   let responseText = "Hello World";
 
-  const userId = request.cookies.get("userId");
+  const userId = request.cookies.get("userId")?.value;
 
   console.log(userId, "$$$$@");
 
