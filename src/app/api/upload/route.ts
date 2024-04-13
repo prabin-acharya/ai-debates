@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   // ###############
   const ai = getRequestContext().env.AI;
   const inputs = {
-    prompt: "Cyberpunk Dog",
+    prompt: "Cyberpunk cow",
   };
 
   const response = await ai.run(
@@ -54,7 +54,11 @@ export async function GET(request: NextRequest) {
     offset += chunk.length;
   }
 
-  const save = await myBucket.put("prabin33", imageData.buffer);
+  const save = await myBucket.put("prabinpng2", imageData.buffer);
+
+  // {
+  //   metadata: { contentType: "image/png" },
+  // }
 
   // console.log(save);
   // const save = await myBucket.put("prabin22", response);
