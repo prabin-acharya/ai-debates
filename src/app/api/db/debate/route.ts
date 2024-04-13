@@ -8,15 +8,17 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const data = await request.json();
-  console.log(data);
+  // const data = await request.json();
+  // console.log(data);
 
-  const db = getRequestContext().env.DB;
+  // const db = getRequestContext().env.DB;
 
-  const { results } = await db
-    .prepare("SELECT * FROM Customers WHERE CompanyName = ?")
-    .bind("Bs Beverages")
-    .all();
+  // const { results } = await db
+  //   .prepare("SELECT * FROM Customers WHERE CompanyName = ?")
+  //   .bind("Bs Beverages")
+  //   .all();
 
-  return Response.json(results);
+  // return Response.json(results);
+
+  return Response.json({ hello: "world from get" });
 }
