@@ -3,6 +3,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const runtime = "edge";
@@ -10,8 +11,11 @@ export const runtime = "edge";
 export default function Debate({ params }: { params: { debateId: string } }) {
   const [debateTitle, setDebateTitle] = useState("");
   const [debateArguments, setDebateArguments] = useState<any>([]);
+  const [debateSummary, setDebateSummary] = useState<any>(null);
 
   const debateId = params.debateId;
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchDebateDetails = async () => {
@@ -22,8 +26,23 @@ export default function Debate({ params }: { params: { debateId: string } }) {
 
         console.log(response.data);
 
+        const args =
+          response.data.debateArguments &&
+          response.data.debateArguments.filter(
+            (arg: any) => arg.agentName !== "SUMMARY"
+          );
+
         setDebateTitle(response.data.debate[0].title);
-        setDebateArguments(response.data.debateArguments);
+        setDebateArguments(args);
+
+        const summary =
+          response.data.debateArguments &&
+          response.data.debateArguments &&
+          response.data.debateArguments.filter(
+            (arg: any) => arg.agentName == "SUMMARY"
+          )[0];
+
+        setDebateSummary(summary);
 
         // const debate = {
         //   debateId: "N-F6LxSBS7wO5fuXbmVJH",
@@ -88,12 +107,22 @@ export default function Debate({ params }: { params: { debateId: string } }) {
 
   return (
     <div className="h-full min-h-screen  bg-slate-300">
-      <div className="w-2/3 h-full m-auto pb-10 border  px-2 min-h-screen">
-        <div className="pt-6 ">
+      <div className="w-2/3 h-full mx-auto  border min-h-screen">
+        <nav className=" flex items-center px-2 pt-6 pb-4 justify-between border-b">
           <Link href={"/"}>
-            <h1 className="text-xl font-bold text-red-400">AI Debates</h1>
+            <h1 className="text-2xl font-bold text-red-400">AI Debates</h1>
           </Link>
-        </div>
+          <div className="flex flex-row-reverse ">
+            <div className=" flex items-center justify-center ml-4 pr-4"></div>
+
+            <button
+              onClick={() => router.push("/new")}
+              className="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Add Debate
+            </button>
+          </div>
+        </nav>
         {/*  */}
         <div className="py-2">
           <div className="text-center">
@@ -173,6 +202,21 @@ export default function Debate({ params }: { params: { debateId: string } }) {
                   </div>
                 </div>
               )
+            )}
+
+            {debateSummary && debateSummary.argument && (
+              <>
+                <div className="px-4 border-t my-16">
+                  <div className="w-full mt-6 mb-3">
+                    <div className="bg-slate-200 px-3 rounded-md w-11/12  m-auto border-2 border-blue-600 py-1">
+                      <span className="font-semibold text-sm m-0 pt-1">
+                        SUMMARY
+                      </span>
+                      <p className=" text-black">{debateSummary.argument}</p>
+                    </div>
+                  </div>
+                </div>
+              </>
             )}
           </div>
         )}

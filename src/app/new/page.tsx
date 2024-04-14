@@ -10,8 +10,10 @@ import { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 
 export default function NewDebate() {
-  const [debateTitle, setDebateTitle] = useState("");
   const [debateId, setDebateId] = useState(null);
+  const [debateTitle, setDebateTitle] = useState("");
+  const [debateDescription, setDebateDescription] = useState("");
+
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [createButtonClicked, setCreateButtonClicked] = useState(false);
 
@@ -20,6 +22,9 @@ export default function NewDebate() {
   const [message3Finish, setMessage3Finish] = useState("");
   const [message4Finish, setMessage4Finish] = useState("");
   const [message5Finish, setMessage5Finish] = useState("");
+
+  const [debateSummary, setDebateSummary] = useState("");
+  const [isSummaryLoading, setIsSummaryLoading] = useState(false);
 
   const router = useRouter();
 
@@ -135,6 +140,51 @@ export default function NewDebate() {
     if (debateId && message4Finish.length > 1)
       saveAgentsArgument("ECONOMIST", message4Finish);
   }, [message4Finish, debateId]);
+
+  // genearte and save Summray
+  useEffect(() => {
+    const generateSummary = async () => {
+      try {
+        setIsSummaryLoading(true);
+
+        const response = await axios.post("/api/summary", {
+          debateId,
+          debateDetail: `
+        Debate Title: ${debateTitle}
+        Debate Description: ${debateDescription}
+        Debate Arguments:
+          Steve Jobs: ${message1Finish}
+          Elon Musk: ${message2Finish}
+          Economist: ${message4Finish}
+          Socrates: ${message3Finish}
+          Aristotle: ${message5Finish}
+        `,
+        });
+        console.log(response.data);
+
+        setDebateSummary(response.data.summary);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsSummaryLoading(false);
+      }
+    };
+
+    if (debateId && message5Finish.length > 1) generateSummary();
+  }, [
+    message5Finish,
+    debateId,
+    debateTitle,
+    debateDescription,
+    message1Finish,
+    message2Finish,
+    message4Finish,
+    message3Finish,
+  ]);
+
+  console.log(
+    "-----------------------------------------------------------this is to check render freq"
+  );
 
   const fetchDebateBannerImage = async (resDebateId: string) => {
     if (!debateTitle) return;
@@ -256,13 +306,17 @@ export default function NewDebate() {
   // ###################################################################################################33
   // when user clicks createDebate
   const createDebate = async () => {
-    if (debateTitle.length > 5) {
-      setCreateButtonClicked(true);
+    if (debateTitle.length < 5) {
+      console.log("invalide debate title. should be more than 5 characters");
+      return;
     }
+
+    setCreateButtonClicked(true);
 
     try {
       const response = await axios.post("/api/db/debate", {
         debateTitle,
+        debateDescription: debateDescription || "",
       });
 
       console.log(response.data.debateId, "debateId from remote");
@@ -303,7 +357,7 @@ export default function NewDebate() {
             </div>
             {message5Finish.length > 2 && (
               <button
-                onClick={() => router.push("/new")}
+                onClick={() => window.location.reload()}
                 className="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Add Debate
@@ -311,25 +365,44 @@ export default function NewDebate() {
             )}
           </div>
         </nav>
+
         {/*  */}
         <div className="py-2">
           {!createButtonClicked ? (
-            <div className="flex w-full h-full justify-between px-4 py-6">
-              <input
-                type="text"
-                id="debateTitle"
-                value={debateTitle}
-                onChange={(e) => setDebateTitle(e.target.value)}
-                className=" w-9/12 shadow  border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter debate title"
-              />
-              <div className="w-3/12">
-                <button
-                  onClick={createDebate}
-                  className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                >
-                  Create Debate
-                </button>
+            <div className="flex flex-col w-full h-full justify-between px-4 py-6">
+              <div className="flex flex-col w-2/3 m-auto">
+                <label className="font-semibold mb-1 text-gray-800">
+                  Title
+                  <span className="ml-1 text-red-600">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="debateTitle"
+                  value={debateTitle}
+                  onChange={(e) => setDebateTitle(e.target.value)}
+                  className="mb-4 border rounded py-2 px-3  text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Which Came First: Chicken or Egg?"
+                />
+
+                <label className="font-semibold mb-1 text-gray-800">
+                  Description
+                </label>
+                <textarea
+                  typeof="text"
+                  id="debateDescription"
+                  value={debateDescription}
+                  className="mb-2 outline-none px-2 text-gray-700 rounded py-2"
+                  rows={3}
+                  placeholder="Optional. Set the stage for debate/discussion. Specify focus points..."
+                />
+                <div className="mt-2">
+                  <button
+                    onClick={createDebate}
+                    className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Create Debate
+                  </button>
+                </div>
               </div>
             </div>
           ) : (
@@ -445,6 +518,27 @@ export default function NewDebate() {
                   <p className=" text-black">{messages5[1].content}</p>
                 </div>
               </div>
+            )}
+
+            {isSummaryLoading ? (
+              <div className="w-full text-center py-8">
+                <p className="m-auto">generating summary....</p>
+              </div>
+            ) : (
+              <>
+                {debateSummary.length > 5 && (
+                  <div className="px-4 border-t my-16">
+                    <div className="w-full mt-6 mb-3">
+                      <div className="bg-slate-200 px-3 rounded-md w-11/12  m-auto border-2 border-blue-600 py-1">
+                        <span className="font-semibold text-sm m-0 pt-1">
+                          SUMMARY
+                        </span>
+                        <p className=" text-black">{debateSummary}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

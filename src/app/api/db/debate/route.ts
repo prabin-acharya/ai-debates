@@ -29,9 +29,9 @@ export async function POST(request: NextRequest) {
   const userId = request.cookies.get("userId")?.value;
 
   const data: any = await request.json();
-  console.log(data, userId, "++++");
 
   const debateTitle = data.debateTitle;
+  const debateDescription = data.debateDescription;
 
   const db = getRequestContext().env.DB;
 
@@ -43,6 +43,13 @@ export async function POST(request: NextRequest) {
     .prepare(`INSERT INTO Debates (debateId, userId, title) VALUES (?, ?, ?)`)
     .bind(newDebateId, userId, debateTitle)
     .run();
+
+  // const { success } = await db
+  //   .prepare(
+  //     `INSERT INTO Debates (debateId, userId, title, description) VALUES (?, ?, ?, ?)`
+  //   )
+  //   .bind(newDebateId, userId, debateTitle, debateDescription)
+  //   .run();
 
   return Response.json({ success, debateId: newDebateId });
 }
@@ -56,6 +63,7 @@ async function createDebatesTable(db: any) {
         debateId VARCHAR(20) PRIMARY KEY,
         userId VARCHAR(20),
         title VARCHAR(255),
+        description TEXT,
         createdDateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         CONSTRAINT fk_user
             FOREIGN KEY(userId)
