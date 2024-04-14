@@ -16,3 +16,5 @@ CREATE TABLE Users (
 
 -- wrangler d1 execute d1-example --remote --command "SELECT name FROM sqlite_schema WHERE type ='table'"
 
+-- ###########################
+-- npx wrangler d1 execute ai-debates-d1-prod --remote --command="SELECT * FROM Arguments"

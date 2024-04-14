@@ -13,10 +13,7 @@ export async function POST(request: NextRequest) {
 
   const db = getRequestContext().env.DB;
 
-  const { results } = await db
-    .prepare("SELECT * FROM Customers WHERE CompanyName = ?")
-    .bind("Bs Beverages")
-    .all();
+  const { results } = await db.prepare("SELECT * FROM Debates").all();
 
   return Response.json(results);
 }

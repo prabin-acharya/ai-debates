@@ -15,9 +15,9 @@ export default function NewDebate() {
   const [message1Finish, setMessage1Finish] = useState("");
   const [message2Finish, setMessage2Finish] = useState("");
   const [message3Finish, setMessage3Finish] = useState("");
+  const [message4Finish, setMessage4Finish] = useState("");
 
-  console.log(debateId);
-
+  // Save Arguments to DB
   useEffect(() => {
     console.log(debateId, "message1Finish");
 
@@ -43,6 +43,78 @@ export default function NewDebate() {
     if (debateId && message1Finish.length > 1)
       saveAgentsArgument("STEVE JOBS", message1Finish);
   }, [message1Finish, debateId]);
+
+  useEffect(() => {
+    const saveAgentsArgument = async (agentName: string, argument: string) => {
+      console.log(debateId);
+      if (!debateId) {
+        return;
+      }
+
+      try {
+        const response = await axios.post("/api/db/arguments", {
+          debateId,
+          agentName,
+          argument,
+        });
+
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (debateId && message2Finish.length > 1)
+      saveAgentsArgument("ELON MUSK", message2Finish);
+  }, [message2Finish, debateId]);
+
+  useEffect(() => {
+    const saveAgentsArgument = async (agentName: string, argument: string) => {
+      console.log(debateId);
+      if (!debateId) {
+        return;
+      }
+
+      try {
+        const response = await axios.post("/api/db/arguments", {
+          debateId,
+          agentName,
+          argument,
+        });
+
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (debateId && message3Finish.length > 1)
+      saveAgentsArgument("SOCRATES", message3Finish);
+  }, [message3Finish, debateId]);
+
+  useEffect(() => {
+    const saveAgentsArgument = async (agentName: string, argument: string) => {
+      console.log(debateId);
+      if (!debateId) {
+        return;
+      }
+
+      try {
+        const response = await axios.post("/api/db/arguments", {
+          debateId,
+          agentName,
+          argument,
+        });
+
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (debateId && message4Finish.length > 1)
+      saveAgentsArgument("ECONOMIST", message4Finish);
+  }, [message4Finish, debateId]);
 
   const createDebate = async () => {
     if (debateTitle.length > 5) {
@@ -108,10 +180,8 @@ export default function NewDebate() {
   };
 
   const onFinish2 = (message: Message) => {
-    console.log("2 finish", message);
-
+    console.log("2 finish", message, isLoading);
     setMessage2Finish(message.content);
-    // saveAgentsArgument("Elon Musk", message.content);
 
     append3({
       role: "user",
@@ -126,7 +196,6 @@ export default function NewDebate() {
 
   const onFinish3 = (message: Message) => {
     console.log("3 finish", message);
-
     setMessage3Finish(message.content);
 
     append4({
@@ -143,6 +212,7 @@ export default function NewDebate() {
 
   const onFinish4 = (message: Message) => {
     console.log("2 finish", message);
+    setMessage4Finish(message.content);
   };
 
   // AI debate agents
@@ -151,8 +221,12 @@ export default function NewDebate() {
     onFinish: onFinish1,
   });
 
-  const { messages: messages2, append: append2 } = useChat({
-    api: "/api/chat/anthropic",
+  const {
+    messages: messages2,
+    append: append2,
+    isLoading,
+  } = useChat({
+    api: "/api/chat/llama13",
     onFinish: onFinish2,
   });
 
@@ -162,9 +236,11 @@ export default function NewDebate() {
   });
 
   const { messages: messages4, append: append4 } = useChat({
-    api: "/api/chat/llama13",
+    api: "/api/chat/anthropic",
     onFinish: onFinish4,
   });
+
+  console.log(messages2, "messages2");
 
   return (
     <div className="h-full min-h-screen border-4 border-red-300">
