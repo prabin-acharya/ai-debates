@@ -67,7 +67,7 @@ export default function NewDebate() {
     };
 
     if (debateId && message1Finish.length > 1)
-      saveAgentsArgument("STEVE JOBS", message1Finish);
+      saveAgentsArgument("ARISTOTLE", message1Finish);
   }, [message1Finish, debateId]);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export default function NewDebate() {
     };
 
     if (debateId && message2Finish.length > 1)
-      saveAgentsArgument("ELON MUSK", message2Finish);
+      saveAgentsArgument("STEVE JOBS", message2Finish);
   }, [message2Finish, debateId]);
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function NewDebate() {
     };
 
     if (debateId && message3Finish.length > 1)
-      saveAgentsArgument("SOCRATES", message3Finish);
+      saveAgentsArgument("CARL SAGAN", message3Finish);
   }, [message3Finish, debateId]);
 
   useEffect(() => {
@@ -139,8 +139,56 @@ export default function NewDebate() {
     };
 
     if (debateId && message4Finish.length > 1)
-      saveAgentsArgument("ECONOMIST", message4Finish);
+      saveAgentsArgument("LEONARDO DA VINCI", message4Finish);
   }, [message4Finish, debateId]);
+
+  useEffect(() => {
+    const saveAgentsArgument = async (agentName: string, argument: string) => {
+      console.log(debateId);
+      if (!debateId) {
+        return;
+      }
+
+      try {
+        const response = await axios.post("/api/db/arguments", {
+          debateId,
+          agentName,
+          argument,
+        });
+
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (debateId && message5Finish.length > 1)
+      saveAgentsArgument("ELON MUSK", message5Finish);
+  }, [message5Finish, debateId]);
+
+  useEffect(() => {
+    const saveAgentsArgument = async (agentName: string, argument: string) => {
+      console.log(debateId);
+      if (!debateId) {
+        return;
+      }
+
+      try {
+        const response = await axios.post("/api/db/arguments", {
+          debateId,
+          agentName,
+          argument,
+        });
+
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (debateId && message6Finish.length > 1)
+      saveAgentsArgument("MADAM CURIE", message6Finish);
+  }, [message6Finish, debateId]);
 
   // genearte and save Summray
   useEffect(() => {
@@ -216,10 +264,10 @@ export default function NewDebate() {
       role: "user",
       // content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Steve Jobs. So say what Steve Jobs would say about the topic. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
       // content: `You are taking part in a very importatnt debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Steve Jobs. So say what Steve Jobs would say about the topic from his perspective in this speaking style, language, tone. Go direct to the point, pick a side and make your case. Try to add to the discussion, do not repeat things already said by previous participants. Say it in the tone of how Steve Jobs used to speack and emulate his perspective.
-      content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You will embody Steve Jobs. Approach the topic as Jobs would, leveraging his distinctive speaking style, tone, and perspective. Be assertive and clear, choosing a definitive stance on the issue. Enhance the dialogue by introducing novel viewpoints or arguments, avoiding redundancy with prior statements. Emulate Jobs' characteristic directness,  inspirational tone, charisma to convincingly argue your position.
+      content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You will embody Steve Jobs. Approach the topic as Jobs would, leveraging his distinctive speaking style, tone, and perspective. Be assertive and clear, choosing a definitive stance on the issue. Enhance the dialogue by introducing novel viewpoints or arguments, avoiding redundancy with prior statements. Emulate Jobs' characteristic directness, and inspirational tone to convincingly argue your position. Be direct, clear and concise.
       Here are the arguments made by previous participants:
       Aristotle: ${message.content || ""}
-      (keep it short, less than 90 words. Do NOT mention that you are Steve Jobs). Begin your argument:`,
+      (keep it short, less than 80 words. Do NOT mention that you are Steve Jobs). Begin your argument:`,
     });
   };
 
