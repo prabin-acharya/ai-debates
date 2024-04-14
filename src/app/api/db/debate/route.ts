@@ -5,13 +5,23 @@ import type { NextRequest } from "next/server";
 export const runtime = "edge";
 
 export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const debateId = searchParams.get("debateId");
+  // const debateId = "N-F6LxSBS7wO5fuXbmVJH";
+
   const db = getRequestContext().env.DB;
 
-  const { results } = await db.prepare("SELECT * FROM Debates").all();
+  const { results: debate } = await db
+    .prepare("SELECT * FROM Debates WHERE debateId = ?")
+    .bind(debateId)
+    .all();
 
-  console.log(results);
+  const { results: debateArguments } = await db
+    .prepare("SELECT * FROM Arguments WHERE debateId = ?")
+    .bind(debateId)
+    .all();
 
-  return Response.json(results);
+  return Response.json({ debate, debateArguments });
 }
 
 // save new Debate
