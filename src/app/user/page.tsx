@@ -14,7 +14,7 @@ export default function UserProfile() {
   useEffect(() => {
     const fetchUserDebates = async () => {
       try {
-        const response = await axios.get("/api/db/listAllDebates");
+        const response = await axios.get("/api/db/user");
         console.log(response.data);
 
         setDebates(response.data.results);
