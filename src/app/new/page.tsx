@@ -183,7 +183,24 @@ export default function NewDebate() {
   };
 
   const onFinish4 = (message: Message) => {
-    console.log("2 finish", message);
+    console.log("4 finish", message);
+    setMessage4Finish(message.content);
+
+    append5({
+      role: "user",
+      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like the Aristotle and make your arguments in his language, writing style, tone. Go direct to the point, pick a side and make your case. But, DO NOT  mention that you are Aristotle.
+      Here are the arguments made by previous participants:
+      Steve Jobs: ${message1Finish || ""}
+      Elon Musk: ${message2Finish || ""}
+      Economist: ${message3Finish || ""}
+      Socrates: ${message.content || ""}
+      Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
+      (keep it short, less than 80 words). Begin your argument:`,
+    });
+  };
+
+  const onFinish5 = (message: Message) => {
+    console.log("5 finish", message);
     setMessage4Finish(message.content);
   };
 
@@ -212,6 +229,11 @@ export default function NewDebate() {
     onFinish: onFinish4,
   });
 
+  const { messages: messages5, append: append5 } = useChat({
+    api: "/api/chat/mistral",
+    onFinish: onFinish5,
+  });
+
   // ###################################################################################################33
   // when user clicks createDebate
   const createDebate = async () => {
@@ -236,6 +258,14 @@ export default function NewDebate() {
       console.error(error);
     }
   };
+
+  // Carl Sagan
+  // davinci
+  // tagore // apj abdul kalam
+  // Nelson Mandela
+  // Aristotle Plato
+  // madam curie //  ada lovelace
+
   return (
     <div className="h-full min-h-screen  bg-slate-300">
       <div className="w-2/3 h-full m-auto pb-10 border  px-2 min-h-screen">
@@ -351,7 +381,7 @@ export default function NewDebate() {
               <div className="w-full items-start mb-3">
                 <div className="bg-violet-300 px-3 rounded-md w-9/12 ">
                   <span className="font-semibold text-sm m-0 pt-1">
-                    SOCRATES
+                    ECONOMIST
                   </span>
                   <p className=" text-black">{messages3[1].content}</p>
                 </div>
@@ -362,9 +392,20 @@ export default function NewDebate() {
               <div className="w-full flex flex-col items-end mb-3">
                 <div className="bg-fuchsia-300 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
                   <span className="font-semibold text-sm m-0 pt-1">
-                    ECONOMIST
+                    SOCRATES
                   </span>
                   <p className=" text-black">{messages4[1].content}</p>
+                </div>
+              </div>
+            )}
+
+            {messages5[1] && (
+              <div className="w-full items-start mb-3">
+                <div className="bg-orange-200 px-3 rounded-md w-9/12 ">
+                  <span className="font-semibold text-sm m-0 pt-1">
+                    ARISTOTLE
+                  </span>
+                  <p className=" text-black">{messages5[1].content}</p>
                 </div>
               </div>
             )}
