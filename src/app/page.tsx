@@ -41,6 +41,16 @@ export default function Home() {
       }
     };
 
+    const getUserId = async () => {
+      try {
+        const response = await axios.get("/api/db/userId");
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching debates:", error);
+      }
+    };
+
+    getUserId();
     fetchDebates();
   }, []);
 

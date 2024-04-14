@@ -19,6 +19,20 @@ export default function NewDebate() {
   const [message4Finish, setMessage4Finish] = useState("");
   const [message5Finish, setMessage5Finish] = useState("");
 
+  // make sure userId exists in cookie
+  useEffect(() => {
+    const getUserId = async () => {
+      try {
+        const response = await axios.get("/api/db/userId");
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching debates:", error);
+      }
+    };
+
+    getUserId();
+  }, []);
+
   // Save Arguments to DB
   useEffect(() => {
     console.log(debateId, "message1Finish");
