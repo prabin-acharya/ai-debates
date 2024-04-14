@@ -245,9 +245,9 @@ export default function NewDebate() {
           </Link>
         </div>
         {/*  */}
-        <div className="py-6">
+        <div className="py-2">
           {!createButtonClicked ? (
-            <div className="flex w-full h-full justify-between px-4 ">
+            <div className="flex w-full h-full justify-between px-4 py-6">
               <input
                 type="text"
                 id="debateTitle"
@@ -267,7 +267,7 @@ export default function NewDebate() {
             </div>
           ) : (
             <div className="text-center">
-              <p className="text-4xl font-medium text-gray-800 font-serif">
+              <p className="text-4xl font-semibold text-gray-800 font-serif">
                 {debateTitle}
               </p>
             </div>
@@ -326,62 +326,40 @@ export default function NewDebate() {
 
           <div className="px-4 mt-3">
             {messages1[1] && (
-              <div className="w-full items-start py-2">
-                <div className="bg-blue-200 px-3 rounded-md w-9/12 mb-4">
+              <div className="w-full items-start mt-2 mb-3">
+                <div className="bg-blue-200 px-3 rounded-md w-9/12 ">
                   <span className="font-semibold text-sm m-0 pt-1">
                     STEVE JOBS
                   </span>
-                  <p className=" text-black">
-                    {messages1[1].content}
-                    {/* Free speech is the cornerstone of a democratic society,
-                  fundamental to individual autonomy, societal progress, and the
-                  exchange of ideas. Dating back to the Enlightenment era and
-                  enshrined in documents like the First Amendment to the United
-                  States Constitutio */}
-                  </p>
+                  <p className=" text-black">{messages1[1].content}</p>
                 </div>
               </div>
             )}
 
             {messages2[1] && (
-              <div className="w-full flex flex-col items-end mb-4">
+              <div className="w-full flex flex-col items-end mb-3">
                 <div className="bg-green-200 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
                   <span className="font-semibold text-sm m-0 pt-1">
                     ELON MUSK
                   </span>
-                  <p className=" text-black">
-                    {messages2[1].content}
-                    {/* Central to the argument for free speech is the belief that
-                    allowing diverse perspectives to be heard fosters
-                    innovation, intellectual growth, and the discovery of truth.
-                    By engaging in open dialogue and debate, society can
-                    identify and challenge prevailing norms, question authority,
-                    and address injustices. */}
-                  </p>
+                  <p className=" text-black">{messages2[1].content}</p>
                 </div>
               </div>
             )}
 
             {messages3[1] && (
-              <div className="w-full items-start">
-                <div className="bg-violet-300 px-3 rounded-md w-9/12 mb-4">
+              <div className="w-full items-start mb-3">
+                <div className="bg-violet-300 px-3 rounded-md w-9/12 ">
                   <span className="font-semibold text-sm m-0 pt-1">
                     SOCRATES
                   </span>
-                  <p className=" text-black">
-                    {messages3[1].content}
-                    {/* Free speech is the cornerstone of a democratic society,
-                    fundamental to individual autonomy, societal progress, and
-                    the exchange of ideas. Dating back to the Enlightenment era
-                    and enshrined in documents like the First Amendment to the
-                    United States Constitutio */}
-                  </p>
+                  <p className=" text-black">{messages3[1].content}</p>
                 </div>
               </div>
             )}
 
             {messages4[1] && (
-              <div className="w-full flex flex-col items-end mb-4">
+              <div className="w-full flex flex-col items-end mb-3">
                 <div className="bg-fuchsia-300 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
                   <span className="font-semibold text-sm m-0 pt-1">
                     ECONOMIST

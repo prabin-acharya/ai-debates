@@ -245,9 +245,9 @@ export default function Debate() {
           </Link>
         </div>
         {/*  */}
-        <div className="py-6">
+        <div className="py-2">
           {!createButtonClicked ? (
-            <div className="flex w-full h-full justify-between px-4 ">
+            <div className="flex w-full h-full justify-between px-4 py-6 ">
               <input
                 type="text"
                 id="debateTitle"
@@ -267,8 +267,9 @@ export default function Debate() {
             </div>
           ) : (
             <div className="text-center">
-              <p className="text-4xl font-medium text-gray-800 font-serif">
-                {debateTitle || "Hello Worlds"}
+              <p className="text-4xl font-semibold text-gray-800 font-serif">
+                {debateTitle ||
+                  "Artificial Intelligience versus Artificial Safety"}
               </p>
             </div>
           )}
@@ -358,8 +359,8 @@ export default function Debate() {
             {/*  */}
 
             {/* {messages1[1] && ( */}
-            <div className="w-full items-start py-2">
-              <div className="bg-blue-200 px-3 rounded-md w-9/12 mb-4">
+            <div className="w-full items-start mt-2 mb-3">
+              <div className="bg-blue-200 px-3 rounded-md w-9/12 ">
                 <span className="font-semibold text-sm m-0 pt-1">
                   STEVE JOBS
                 </span>
@@ -376,7 +377,7 @@ export default function Debate() {
             {/* )} */}
 
             {/* {messages2[1] && ( */}
-            <div className="w-full flex flex-col items-end mb-4">
+            <div className="w-full flex flex-col items-end mb-3">
               <div className="bg-green-200 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
                 <span className="font-semibold text-sm m-0 pt-1">
                   ELON MUSK
@@ -395,8 +396,8 @@ export default function Debate() {
             {/* )} */}
 
             {/* {messages3[1] && ( */}
-            <div className="w-full items-start">
-              <div className="bg-violet-300 px-3 rounded-md w-9/12 mb-4">
+            <div className="w-full items-start mb-3">
+              <div className="bg-violet-300 px-3 rounded-md w-9/12">
                 <span className="font-semibold text-sm m-0 pt-1">SOCRATES</span>
                 <p className=" text-black">
                   {/* {messages3[1].content} */}
