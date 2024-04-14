@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
-// get image from its key
+// this not needed
 export async function GET(request: NextRequest) {
   console.log("--------------------------");
   const myBucket = getRequestContext().env.R2_BUCKET;
