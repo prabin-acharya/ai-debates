@@ -39,17 +39,17 @@ export async function POST(request: NextRequest) {
 
   const newDebateId = nanoid();
 
-  // const { success } = await db
-  //   .prepare(`INSERT INTO Debates (debateId, userId, title) VALUES (?, ?, ?)`)
-  //   .bind(newDebateId, userId, debateTitle)
-  //   .run();
-
   const { success } = await db
-    .prepare(
-      `INSERT INTO Debates (debateId, userId, title, description) VALUES (?, ?, ?, ?)`
-    )
-    .bind(newDebateId, userId, debateTitle, debateDescription)
+    .prepare(`INSERT INTO Debates (debateId, userId, title) VALUES (?, ?, ?)`)
+    .bind(newDebateId, userId, debateTitle)
     .run();
+
+  // const { success } = await db
+  //   .prepare(
+  //     `INSERT INTO Debates (debateId, userId, title, description) VALUES (?, ?, ?, ?)`
+  //   )
+  //   .bind(newDebateId, userId, debateTitle, debateDescription)
+  //   .run();
 
   return Response.json({ success, debateId: newDebateId });
 }
