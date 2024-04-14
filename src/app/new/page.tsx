@@ -154,11 +154,11 @@ export default function NewDebate() {
         Debate Title: ${debateTitle}
         Debate Description: ${debateDescription.substring(0, 300)}
         Debate Arguments:
-          Steve Jobs: ${message1Finish}
-          Elon Musk: ${message2Finish}
-          Economist: ${message4Finish}
-          Socrates: ${message3Finish}
-          Aristotle: ${message5Finish}
+          - ${message1Finish}
+          -  ${message2Finish}
+          - ${message4Finish}
+          - ${message3Finish}
+          - ${message5Finish}
         `,
         });
         console.log(response.data);
@@ -319,7 +319,7 @@ export default function NewDebate() {
   });
 
   const { messages: messages4, append: append4 } = useChat({
-    api: "/api/chat/anthropic",
+    api: "/api/chat/llama2",
     onFinish: onFinish4,
   });
 
