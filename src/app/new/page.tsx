@@ -5,7 +5,9 @@ import { useChat } from "ai/react";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { CgProfile } from "react-icons/cg";
 
 export default function NewDebate() {
   const [debateTitle, setDebateTitle] = useState("");
@@ -18,6 +20,8 @@ export default function NewDebate() {
   const [message3Finish, setMessage3Finish] = useState("");
   const [message4Finish, setMessage4Finish] = useState("");
   const [message5Finish, setMessage5Finish] = useState("");
+
+  const router = useRouter();
 
   // make sure userId exists in cookie
   useEffect(() => {
@@ -283,12 +287,30 @@ export default function NewDebate() {
 
   return (
     <div className="h-full min-h-screen  bg-slate-300">
-      <div className="w-2/3 h-full m-auto pb-10 border  px-2 min-h-screen">
-        <div className="pt-6 ">
+      {/* <div className="w-2/3 h-full m-auto pb-10 border  px-2 min-h-screen"> */}
+
+      <div className="w-2/3 mx-auto h-full border min-h-screen">
+        <nav className=" flex items-center px-2 pt-6  pb-4 justify-between">
           <Link href={"/"}>
-            <h1 className="text-xl font-bold text-red-400">AI Debates</h1>
+            <h1 className="text-2xl font-bold text-red-400">AI Debates</h1>
           </Link>
-        </div>
+          <div className="flex flex-row-reverse ">
+            <div className=" flex items-center justify-center ml-4 pr-4">
+              <CgProfile
+                onClick={() => router.push("/user")}
+                className="text-3xl cursor-pointer text-slate-600"
+              />
+            </div>
+            {message5Finish.length > 2 && (
+              <button
+                onClick={() => router.push("/new")}
+                className="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Add Debate
+              </button>
+            )}
+          </div>
+        </nav>
         {/*  */}
         <div className="py-2">
           {!createButtonClicked ? (

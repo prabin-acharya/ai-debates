@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
@@ -146,15 +147,16 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col bg-slate-300">
-      <div className="w-2/3 mx-auto h-full border">
-        <nav className="border border-blue-500 flex items-center p-1 justify-between">
-          <h1 className="font-bold text-2xl text-red-500">Ai debates</h1>
-
+      <div className="w-2/3 mx-auto h-full border min-h-screen">
+        <nav className=" flex items-center px-2 pt-6 pb-4 justify-between">
+          <Link href={"/"}>
+            <h1 className="text-2xl font-bold text-red-400">AI Debates</h1>
+          </Link>
           <div className="flex flex-row-reverse ">
             <div className=" flex items-center justify-center ml-4 pr-4">
               <CgProfile
                 onClick={() => router.push("/user")}
-                className="text-3xl cursor-pointer text-gray-800"
+                className="text-3xl cursor-pointer text-slate-600"
               />
             </div>
 
