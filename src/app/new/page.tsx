@@ -4,6 +4,7 @@ import { Message } from "ai";
 import { useChat } from "ai/react";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function NewDebate() {
@@ -116,35 +117,8 @@ export default function NewDebate() {
       saveAgentsArgument("ECONOMIST", message4Finish);
   }, [message4Finish, debateId]);
 
-  const createDebate = async () => {
-    if (debateTitle.length > 5) {
-      setCreateButtonClicked(true);
-    }
-
-    try {
-      const response = await axios.post("/api/db/debate", {
-        debateTitle,
-      });
-
-      console.log(response.data.debateId, "debateId from remote");
-      setDebateId(response.data.debateId);
-      fetchDebateBannerImage(response.data.debateId);
-
-      append1({
-        role: "user",
-        content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Steve Jobs and make your argument. You are playing the character of Steve Jobs. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const fetchDebateBannerImage = async (resDebateId: string) => {
-    // if (!debateId || !debateTitle) return;
-
     if (!debateTitle) return;
-
-    console.log("generate image", debateId, debateTitle, resDebateId);
 
     try {
       const response = await axios.post("/api/image/", {
@@ -238,11 +212,38 @@ export default function NewDebate() {
     onFinish: onFinish4,
   });
 
-  console.log(messages2, "messages2");
+  // ###################################################################################################33
+  // when user clicks createDebate
+  const createDebate = async () => {
+    if (debateTitle.length > 5) {
+      setCreateButtonClicked(true);
+    }
 
+    try {
+      const response = await axios.post("/api/db/debate", {
+        debateTitle,
+      });
+
+      console.log(response.data.debateId, "debateId from remote");
+      setDebateId(response.data.debateId);
+      fetchDebateBannerImage(response.data.debateId);
+
+      append1({
+        role: "user",
+        content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Steve Jobs and make your argument. You are playing the character of Steve Jobs. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
-    <div className="h-full min-h-screen border-4 border-red-300">
-      <div className="w-2/3 h-full m-auto py-10 border  px-2">
+    <div className="h-full min-h-screen  bg-slate-300">
+      <div className="w-2/3 h-full m-auto pb-10 border  px-2 min-h-screen">
+        <div className="pt-6 ">
+          <Link href={"/"}>
+            <h1 className="text-xl font-bold text-red-400">AI Debates</h1>
+          </Link>
+        </div>
         {/*  */}
         <div className="py-8">
           {!createButtonClicked ? (
@@ -266,42 +267,66 @@ export default function NewDebate() {
             </div>
           ) : (
             <div className="text-center">
-              <p className="text-4xl font-semibold">{debateTitle}</p>
+              <p className="text-4xl font-medium text-gray-800 font-serif">
+                {debateTitle}
+              </p>
             </div>
           )}
         </div>
 
         {createButtonClicked && (
           <>
-            {isImageLoaded ? (
-              <div className="relative h-52 w-4/5 m-auto">
+            <div className="relative h-52 w-4/5 m-auto py-2">
+              {isImageLoaded ? (
                 <Image
                   layout="fill"
                   objectFit="cover"
                   className="absolute inset-0 rounded-xl"
                   src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/${debateId}`}
+                  // src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/prabin333`}
                   alt={debateTitle}
                 />
-              </div>
-            ) : (
-              <>
-                <p>genearting banner image...</p>
-              </>
-            )}
+              ) : (
+                <div className="m-auto text-center py-8  w-fit flex flex-col items-center justify-center">
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g>
+                      <circle cx="3" cy="12" r="2" fill="grey" />
+                      <circle cx="21" cy="12" r="2" fill="grey" />
+                      <circle cx="12" cy="21" r="2" fill="grey" />
+                      <circle cx="12" cy="3" r="2" fill="grey" />
+                      <circle cx="5.64" cy="5.64" r="2" fill="grey" />
+                      <circle cx="18.36" cy="18.36" r="2" fill="grey" />
+                      <circle cx="5.64" cy="18.36" r="2" fill="grey" />
+                      <circle cx="18.36" cy="5.64" r="2" fill="grey" />
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        dur="1.5s"
+                        values="0 12 12;360 12 12"
+                        repeatCount="indefinite"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              )}
+            </div>
           </>
         )}
 
-        {/* )} */}
-
         {/*  */}
-        <div className="px-2">
-          <p className="font-bold text-lg mb-3">Debates</p>
+        <div className="px-2 pb-16">
+          {messages1.length > 1 && (
+            <p className="font-bold text-lg">Arguments</p>
+          )}
 
-          <div className="px-4">
-            {/*  */}
-
+          <div className="px-4 mt-3">
             {messages1[1] && (
-              <div className="w-full items-start">
+              <div className="w-full items-start py-2">
                 <div className="bg-blue-200 px-3 rounded-md w-9/12 mb-4">
                   <span className="font-semibold text-sm m-0 pt-1">
                     STEVE JOBS
@@ -309,10 +334,10 @@ export default function NewDebate() {
                   <p className=" text-black">
                     {messages1[1].content}
                     {/* Free speech is the cornerstone of a democratic society,
-                    fundamental to individual autonomy, societal progress, and
-                    the exchange of ideas. Dating back to the Enlightenment era
-                    and enshrined in documents like the First Amendment to the
-                    United States Constitutio */}
+                  fundamental to individual autonomy, societal progress, and the
+                  exchange of ideas. Dating back to the Enlightenment era and
+                  enshrined in documents like the First Amendment to the United
+                  States Constitutio */}
                   </p>
                 </div>
               </div>
@@ -327,11 +352,11 @@ export default function NewDebate() {
                   <p className=" text-black">
                     {messages2[1].content}
                     {/* Central to the argument for free speech is the belief that
-                  allowing diverse perspectives to be heard fosters innovation,
-                  intellectual growth, and the discovery of truth. By engaging
-                  in open dialogue and debate, society can identify and
-                  challenge prevailing norms, question authority, and address
-                  injustices. */}
+                    allowing diverse perspectives to be heard fosters
+                    innovation, intellectual growth, and the discovery of truth.
+                    By engaging in open dialogue and debate, society can
+                    identify and challenge prevailing norms, question authority,
+                    and address injustices. */}
                   </p>
                 </div>
               </div>
