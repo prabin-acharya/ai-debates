@@ -8,18 +8,21 @@ import { useEffect, useState } from "react";
 export const runtime = "edge";
 
 export default function Debate({ params }: { params: { debateId: string } }) {
-  const [debateId, setDebateId] = useState(params.debateId);
   const [debateTitle, setDebateTitle] = useState("");
   const [debateArguments, setDebateArguments] = useState<any>([]);
 
+  const debateId = params.debateId;
+
   useEffect(() => {
     const fetchDebateDetails = async () => {
+      if (!debateId) return;
+
       try {
         const response = await axios.get(`/api/db/debate?debateId=${debateId}`);
 
         console.log(response.data);
 
-        setDebateTitle(response.data.debate.title);
+        setDebateTitle(response.data.debate[0].title);
         setDebateArguments(response.data.debateArguments);
 
         // const debate = {
