@@ -76,6 +76,16 @@ export default function Debate({ params }: { params: { debateId: string } }) {
     fetchDebateDetails();
   }, [debateId]);
 
+  const debateArgumensBgColors = [
+    "bg-blue-200",
+    "bg-green-200",
+    "bg-violet-300",
+    "bg-fuchsia-300",
+    "bg-slate-200",
+    "bg-orange-200",
+    "bg-pink-200",
+  ];
+
   return (
     <div className="h-full min-h-screen  bg-slate-300">
       <div className="w-2/3 h-full m-auto pb-10 border  px-2 min-h-screen">
@@ -133,22 +143,38 @@ export default function Debate({ params }: { params: { debateId: string } }) {
         </div>
 
         {debateArguments.length > 0 && (
-          <>
-            <div className="px-2 pt-4 pb-16">
-              <p className="font-bold text-lg">Arguments</p>
-            </div>
+          <div className="px-2 pt-4 pb-16">
+            <p className="font-bold text-lg">Arguments</p>
 
-            {debateArguments.map((debateArgument: any, index: any) => (
-              <div key={index} className="w-full items-start mt-2 mb-3">
-                <div className="bg-blue-200 px-3 rounded-md w-9/12 ">
-                  <span className="font-semibold text-sm m-0 pt-1">
-                    {debateArgument.agentName}
-                  </span>
-                  <p className=" text-black">{debateArgument.argument}</p>
+            {debateArguments.map((debateArgument: any, index: any) =>
+              index % 2 === 0 ? (
+                <div key={index} className="w-full items-start mt-2 mb-3">
+                  <div
+                    className={`${debateArgumensBgColors[index]} px-3 rounded-md w-9/12 `}
+                  >
+                    <span className="font-semibold text-sm m-0 pt-1">
+                      {debateArgument.agentName}
+                    </span>
+                    <p className=" text-black">{debateArgument.argument}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </>
+              ) : (
+                <div
+                  key={index}
+                  className="w-full flex flex-col items-end mb-3"
+                >
+                  <div
+                    className={`${debateArgumensBgColors[index]} px-3 rounded-md w-9/12 flex flex-col flex-end items-end`}
+                  >
+                    <span className="font-semibold text-sm m-0 pt-1">
+                      {debateArgument.agentName}
+                    </span>
+                    <p className=" text-black">{debateArgument.argument}</p>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
         )}
 
         {/* ARGUMENTS ############### */}
