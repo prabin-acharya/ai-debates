@@ -151,7 +151,7 @@ export default function NewDebate() {
           debateId,
           debateDetail: `
         Debate Title: ${debateTitle}
-        Debate Description: ${debateDescription}
+        Debate Description: ${debateDescription.substring(0, 300)}
         Debate Arguments:
           Steve Jobs: ${message1Finish}
           Elon Musk: ${message2Finish}
@@ -316,7 +316,7 @@ export default function NewDebate() {
     try {
       const response = await axios.post("/api/db/debate", {
         debateTitle,
-        debateDescription: debateDescription || "",
+        debateDescription: debateDescription.substring(0, 300),
       });
 
       console.log(response.data.debateId, "debateId from remote");
@@ -391,6 +391,7 @@ export default function NewDebate() {
                   typeof="text"
                   id="debateDescription"
                   value={debateDescription}
+                  onChange={(e) => setDebateDescription(e.target.value)}
                   className="mb-2 outline-none px-2 text-gray-700 rounded py-2"
                   rows={3}
                   placeholder="Optional. Set the stage for debate/discussion. Specify focus points..."
@@ -410,6 +411,11 @@ export default function NewDebate() {
               <p className="text-4xl font-semibold text-gray-800 font-serif">
                 {debateTitle}
               </p>
+              {debateDescription.length > 1 && (
+                <p className="px-4 text-gray-800 font-serif">
+                  {debateDescription}
+                </p>
+              )}
             </div>
           )}
         </div>
@@ -459,7 +465,7 @@ export default function NewDebate() {
         )}
 
         {/*  */}
-        <div className="px-2 pt-2 pb-16">
+        <div className="px-2 pt-2 pb-32">
           {messages1.length > 1 && (
             <p className="font-bold text-lg">Arguments</p>
           )}
@@ -510,7 +516,7 @@ export default function NewDebate() {
             )}
 
             {messages5[1] && (
-              <div className="w-full items-start mb-3">
+              <div className="w-full items-start mb-8">
                 <div className="bg-orange-200 px-3 rounded-md w-9/12 ">
                   <span className="font-semibold text-sm m-0 pt-1">
                     ARISTOTLE
@@ -527,8 +533,8 @@ export default function NewDebate() {
             ) : (
               <>
                 {debateSummary.length > 5 && (
-                  <div className="px-4 border-t my-16">
-                    <div className="w-full mt-6 mb-3">
+                  <div className="px-4 border-t pb-16">
+                    <div className="w-full py-16 mb-3">
                       <div className="bg-slate-200 px-3 rounded-md w-11/12  m-auto border-2 border-blue-600 py-1">
                         <span className="font-semibold text-sm m-0 pt-1">
                           SUMMARY

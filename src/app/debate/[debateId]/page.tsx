@@ -11,7 +11,7 @@ export const runtime = "edge";
 export default function Debate({ params }: { params: { debateId: string } }) {
   const [debateTitle, setDebateTitle] = useState("");
   const [debateArguments, setDebateArguments] = useState<any>([]);
-  const [debateSummary, setDebateSummary] = useState<any>(null);
+  const [debateSummary, setDebateSummary] = useState<any>("");
 
   const debateId = params.debateId;
 
@@ -35,14 +35,13 @@ export default function Debate({ params }: { params: { debateId: string } }) {
         setDebateTitle(response.data.debate[0].title);
         setDebateArguments(args);
 
-        const summary =
-          response.data.debateArguments &&
+        const summaryArray =
           response.data.debateArguments &&
           response.data.debateArguments.filter(
             (arg: any) => arg.agentName == "SUMMARY"
-          )[0];
+          );
 
-        setDebateSummary(summary);
+        if (summaryArray.length > 0) setDebateSummary(summaryArray[0].argument);
 
         // const debate = {
         //   debateId: "N-F6LxSBS7wO5fuXbmVJH",
@@ -103,6 +102,16 @@ export default function Debate({ params }: { params: { debateId: string } }) {
     "bg-slate-200",
     "bg-orange-200",
     "bg-pink-200",
+  ];
+
+  const debateArgumensBorders = [
+    "border-blue-500",
+    "border-green-500",
+    "border-violet-500",
+    "border-fuchsia-500",
+    "border-slate-500",
+    "border-orange-500",
+    "border-pink-500",
   ];
 
   return (
@@ -172,14 +181,14 @@ export default function Debate({ params }: { params: { debateId: string } }) {
         </div>
 
         {debateArguments.length > 0 && (
-          <div className="px-2 pt-4 pb-16">
+          <div className="px-2 pt-4 pb-32">
             <p className="font-bold text-lg">Arguments</p>
 
             {debateArguments.map((debateArgument: any, index: any) =>
               index % 2 === 0 ? (
                 <div key={index} className="w-full items-start mt-2 mb-3">
                   <div
-                    className={`${debateArgumensBgColors[index]} px-3 rounded-md w-9/12 `}
+                    className={`${debateArgumensBgColors[index]} border ${debateArgumensBorders[index]} px-3 rounded-md w-9/12 `}
                   >
                     <span className="font-semibold text-sm m-0 pt-1">
                       {debateArgument.agentName}
@@ -193,7 +202,7 @@ export default function Debate({ params }: { params: { debateId: string } }) {
                   className="w-full flex flex-col items-end mb-3"
                 >
                   <div
-                    className={`${debateArgumensBgColors[index]} px-3 rounded-md w-9/12 flex flex-col flex-end items-end`}
+                    className={`${debateArgumensBgColors[index]} border ${debateArgumensBorders[index]} px-3 rounded-md w-9/12 flex flex-col flex-end items-end`}
                   >
                     <span className="font-semibold text-sm m-0 pt-1">
                       {debateArgument.agentName}
@@ -204,15 +213,15 @@ export default function Debate({ params }: { params: { debateId: string } }) {
               )
             )}
 
-            {debateSummary && debateSummary.argument && (
+            {debateSummary.length > 5 && (
               <>
-                <div className="px-4 border-t my-16">
-                  <div className="w-full mt-6 mb-3">
+                <div className="px-4 border-t  mt-8">
+                  <div className="w-full py-16 mb-3">
                     <div className="bg-slate-200 px-3 rounded-md w-11/12  m-auto border-2 border-blue-600 py-1">
                       <span className="font-semibold text-sm m-0 pt-1">
                         SUMMARY
                       </span>
-                      <p className=" text-black">{debateSummary.argument}</p>
+                      <p className=" text-black">{debateSummary}</p>
                     </div>
                   </div>
                 </div>
