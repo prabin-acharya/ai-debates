@@ -17,6 +17,7 @@ export default function NewDebate() {
   const [message2Finish, setMessage2Finish] = useState("");
   const [message3Finish, setMessage3Finish] = useState("");
   const [message4Finish, setMessage4Finish] = useState("");
+  const [message5Finish, setMessage5Finish] = useState("");
 
   // Save Arguments to DB
   useEffect(() => {
@@ -201,7 +202,7 @@ export default function NewDebate() {
 
   const onFinish5 = (message: Message) => {
     console.log("5 finish", message);
-    setMessage4Finish(message.content);
+    setMessage5Finish(message.content);
   };
 
   // AI debate agents
