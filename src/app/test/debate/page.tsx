@@ -7,11 +7,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function NewDebate() {
+export default function Debate() {
   const [debateTitle, setDebateTitle] = useState("");
   const [debateId, setDebateId] = useState(null);
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [createButtonClicked, setCreateButtonClicked] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(true);
+  const [createButtonClicked, setCreateButtonClicked] = useState(true);
 
   const [message1Finish, setMessage1Finish] = useState("");
   const [message2Finish, setMessage2Finish] = useState("");
@@ -219,26 +219,26 @@ export default function NewDebate() {
       setCreateButtonClicked(true);
     }
 
-    try {
-      const response = await axios.post("/api/db/debate", {
-        debateTitle,
-      });
+    // try {
+    //   const response = await axios.post("/api/db/debate", {
+    //     debateTitle,
+    //   });
 
-      console.log(response.data.debateId, "debateId from remote");
-      setDebateId(response.data.debateId);
-      fetchDebateBannerImage(response.data.debateId);
+    //   console.log(response.data.debateId, "debateId from remote");
+    //   setDebateId(response.data.debateId);
+    //   fetchDebateBannerImage(response.data.debateId);
 
-      append1({
-        role: "user",
-        content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Steve Jobs and make your argument. You are playing the character of Steve Jobs. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    //   append1({
+    //     role: "user",
+    //     content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Steve Jobs and make your argument. You are playing the character of Steve Jobs. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
+    //   });
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
   return (
     <div className="h-full min-h-screen  bg-slate-300">
-      <div className="w-2/3 h-full m-auto pb-10 border  px-2 min-h-screen">
+      <div className="w-2/3 h-full m-auto pb-10 border  px-2">
         <div className="pt-6 ">
           <Link href={"/"}>
             <h1 className="text-xl font-bold text-red-400">AI Debates</h1>
@@ -268,7 +268,7 @@ export default function NewDebate() {
           ) : (
             <div className="text-center">
               <p className="text-4xl font-medium text-gray-800 font-serif">
-                {debateTitle}
+                {debateTitle || "Hello Worlds"}
               </p>
             </div>
           )}
@@ -282,8 +282,8 @@ export default function NewDebate() {
                   layout="fill"
                   objectFit="cover"
                   className="absolute inset-0 rounded-xl"
-                  src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/${debateId}`}
-                  // src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/prabin333`}
+                  // src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/${debateId}`}
+                  src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/prabin333`}
                   alt={debateTitle}
                 />
               ) : (
@@ -318,67 +318,97 @@ export default function NewDebate() {
           </>
         )}
 
+        {/* )} */}
+
         {/*  */}
         <div className="px-2 pt-2 pb-16">
-          {messages1.length > 1 && (
-            <p className="font-bold text-lg">Arguments</p>
-          )}
+          <p className="font-bold text-lg">Arguments</p>
 
-          <div className="px-4 mt-3">
-            {messages1[1] && (
-              <div className="w-full items-start py-2">
-                <div className="bg-blue-200 px-3 rounded-md w-9/12 mb-4">
-                  <span className="font-semibold text-sm m-0 pt-1">
-                    STEVE JOBS
-                  </span>
-                  <p className=" text-black">
-                    {messages1[1].content}
-                    {/* Free speech is the cornerstone of a democratic society,
+          <div className="px-4">
+            {/* <div className="w-full">
+              {messages1.length < 2 && (
+                <div className="m-auto text-center py-4 pb-8 w-fit flex flex-col items-center justify-center">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g>
+                      <circle cx="3" cy="12" r="2" />
+                      <circle cx="21" cy="12" r="2" />
+                      <circle cx="12" cy="21" r="2" />
+                      <circle cx="12" cy="3" r="2" />
+                      <circle cx="5.64" cy="5.64" r="2" />
+                      <circle cx="18.36" cy="18.36" r="2" />
+                      <circle cx="5.64" cy="18.36" r="2" />
+                      <circle cx="18.36" cy="5.64" r="2" />
+                      <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        dur="1.5s"
+                        values="0 12 12;360 12 12"
+                        repeatCount="indefinite"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              )}
+            </div> */}
+            {/*  */}
+
+            {/* {messages1[1] && ( */}
+            <div className="w-full items-start py-2">
+              <div className="bg-blue-200 px-3 rounded-md w-9/12 mb-4">
+                <span className="font-semibold text-sm m-0 pt-1">
+                  STEVE JOBS
+                </span>
+                <p className=" text-black">
+                  {/* {messages1[1].content} */}
+                  Free speech is the cornerstone of a democratic society,
                   fundamental to individual autonomy, societal progress, and the
                   exchange of ideas. Dating back to the Enlightenment era and
                   enshrined in documents like the First Amendment to the United
-                  States Constitutio */}
-                  </p>
-                </div>
+                  States Constitutio
+                </p>
               </div>
-            )}
+            </div>
+            {/* )} */}
 
-            {messages2[1] && (
-              <div className="w-full flex flex-col items-end mb-4">
-                <div className="bg-green-200 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
-                  <span className="font-semibold text-sm m-0 pt-1">
-                    ELON MUSK
-                  </span>
-                  <p className=" text-black">
-                    {messages2[1].content}
-                    {/* Central to the argument for free speech is the belief that
-                    allowing diverse perspectives to be heard fosters
-                    innovation, intellectual growth, and the discovery of truth.
-                    By engaging in open dialogue and debate, society can
-                    identify and challenge prevailing norms, question authority,
-                    and address injustices. */}
-                  </p>
-                </div>
+            {/* {messages2[1] && ( */}
+            <div className="w-full flex flex-col items-end mb-4">
+              <div className="bg-green-200 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
+                <span className="font-semibold text-sm m-0 pt-1">
+                  ELON MUSK
+                </span>
+                <p className=" text-black">
+                  {/* {messages2[1].content} */}
+                  Central to the argument for free speech is the belief that
+                  allowing diverse perspectives to be heard fosters innovation,
+                  intellectual growth, and the discovery of truth. By engaging
+                  in open dialogue and debate, society can identify and
+                  challenge prevailing norms, question authority, and address
+                  injustices.
+                </p>
               </div>
-            )}
+            </div>
+            {/* )} */}
 
-            {messages3[1] && (
-              <div className="w-full items-start">
-                <div className="bg-violet-300 px-3 rounded-md w-9/12 mb-4">
-                  <span className="font-semibold text-sm m-0 pt-1">
-                    SOCRATES
-                  </span>
-                  <p className=" text-black">
-                    {messages3[1].content}
-                    {/* Free speech is the cornerstone of a democratic society,
-                    fundamental to individual autonomy, societal progress, and
-                    the exchange of ideas. Dating back to the Enlightenment era
-                    and enshrined in documents like the First Amendment to the
-                    United States Constitutio */}
-                  </p>
-                </div>
+            {/* {messages3[1] && ( */}
+            <div className="w-full items-start">
+              <div className="bg-violet-300 px-3 rounded-md w-9/12 mb-4">
+                <span className="font-semibold text-sm m-0 pt-1">SOCRATES</span>
+                <p className=" text-black">
+                  {/* {messages3[1].content} */}
+                  Free speech is the cornerstone of a democratic society,
+                  fundamental to individual autonomy, societal progress, and the
+                  exchange of ideas. Dating back to the Enlightenment era and
+                  enshrined in documents like the First Amendment to the United
+                  States Constitutio
+                </p>
               </div>
-            )}
+            </div>
+            {/* )} */}
 
             {messages4[1] && (
               <div className="w-full flex flex-col items-end mb-4">
