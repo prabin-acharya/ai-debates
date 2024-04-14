@@ -22,6 +22,7 @@ export default function NewDebate() {
   const [message3Finish, setMessage3Finish] = useState("");
   const [message4Finish, setMessage4Finish] = useState("");
   const [message5Finish, setMessage5Finish] = useState("");
+  const [message6Finish, setMessage6Finish] = useState("");
 
   const [debateSummary, setDebateSummary] = useState("");
   const [isSummaryLoading, setIsSummaryLoading] = useState(false);
@@ -212,10 +213,11 @@ export default function NewDebate() {
 
     append2({
       role: "user",
-      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Elon Musk and make your argument. You are playing the character of Elon Musk. Go direct to the point, pick a side and make your case. Say it in the tone of how Elon Musk speaks.
+      // content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Steve Jobs. So say what Steve Jobs would say about the topic. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
+      // content: `You are taking part in a very importatnt debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Steve Jobs. So say what Steve Jobs would say about the topic from his perspective in this speaking style, language, tone. Go direct to the point, pick a side and make your case. Try to add to the discussion, do not repeat things already said by previous participants. Say it in the tone of how Steve Jobs used to speack and emulate his perspective.
+      content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You will embody Steve Jobs. Approach the topic as Jobs would, leveraging his distinctive speaking style, tone, and perspective. Be assertive and clear, choosing a definitive stance on the issue. Enhance the dialogue by introducing novel viewpoints or arguments, avoiding redundancy with prior statements. Emulate Jobs' characteristic directness,  inspirational tone, charisma to convincingly argue your position.
       Here are the arguments made by previous participants:
-      Steve Jobs: ${message.content || ""}
-      Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
+      Aristotle: ${message.content || ""}
       (keep it short, less than 80 words). Begin your argument:`,
     });
   };
@@ -226,10 +228,11 @@ export default function NewDebate() {
 
     append3({
       role: "user",
-      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like a very talented Economist and make your argument. You share your perspective as economist and try to add to the discussions. You are playing the character of a very talented Economist. You take a broad view at the world. Use some language of economist but it should be understandable by general public. Go direct to the point, pick a side and make your case. Present your argument in the tone of how an economist speaks. But, DO NOT  mention that you are an economist. Do NOT say anywhere that you are an economist. 
+      // content: `You are taking part in a very importatnt debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Carl Sagan. So say what Steve Jobs would say about the topic from his perspective in this speaking style, language, tone. Go direct to the point, pick a side and make your case. Try to add to the discussion, do not repeat things already said by previous participants. Say it in the tone of how Steve Jobs used to speack and emulate his perspective.
+      content: `You are participating in an important debate: ${debateTitle}. You are channeling Carl Sagan. Express your arguments with Sagan’s sense of wonder and scientific insight. Use his narrative style, which combines eloquence with clear, accessible explanations, often punctuated with profound reflections on human experience and the cosmos. Approach the topic with a curiosity-driven perspective, emphasizing empirical evidence and rational thought. Aim to inspire and educate, introducing new ideas without duplicating previous contributions. Let Sagan’s passion for discovery and understanding guide your persuasive communication.
       Here are the arguments made by previous participants:
-      Steve Jobs: ${message1Finish || ""}
-      Elon Musk: ${message.content || ""}
+      Aristotle: ${message1Finish || ""}
+      Steve Jobs: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
       (keep it short, less than 80 words). Begin your argument:`,
     });
@@ -241,11 +244,12 @@ export default function NewDebate() {
 
     append4({
       role: "user",
-      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like the philosopher Socrates and make your arguments in his language, writing style, tone. Go direct to the point, pick a side and make your case. But, DO NOT  mention that you are socrates.
+      // content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like the philosopher Socrates and make your arguments in his language, writing style, tone. Go direct to the point, pick a side and make your case. But, DO NOT  mention that you are socrates.
+      content: `You are participating in a significant debate: ${debateTitle}. You are playing the character of Leonardo da Vinci. Articulate your arguments as da Vinci might, blending art, science, and inventive thinking. Use his observational skills and interdisciplinary approach to explore the topic from multiple angles. Emphasize practical solutions and visionary ideas, inspired by da Vinci’s notebooks full of sketches and thoughts. Avoid repeating earlier points, instead bringing fresh, innovative perspectives. Speak with the curiosity and precision of a polymath, persuasively advancing your position with a blend of creativity and analytical rigor.
       Here are the arguments made by previous participants:
-      Steve Jobs: ${message1Finish || ""}
-      Elon Musk: ${message2Finish || ""}
-      Economist: ${message.content || ""}
+      Aristotle: ${message1Finish || ""}
+      Steve Jobs: ${message2Finish || ""}
+      Carl Sagan: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
       (keep it short, less than 80 words). Begin your argument:`,
     });
@@ -257,12 +261,13 @@ export default function NewDebate() {
 
     append5({
       role: "user",
-      content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like the Aristotle and make your arguments in his language, writing style, tone. Go direct to the point, pick a side and make your case. But, DO NOT  mention that you are Aristotle.
+      // content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like the Aristotle and make your arguments in his language, writing style, tone. Go direct to the point, pick a side and make your case. But, DO NOT  mention that you are Aristotle.
+      content: `You are participating in an important debate: ${debateTitle}. You are playing the character of Elon Musk. Articulate your views with Musk’s characteristic forward-thinking and solution-oriented approach. Speak with the boldness and directness that Musk is known for, often discussing futuristic technologies and ambitious projects. Tackle the topic from an innovative angle, always looking for disruptive and scalable solutions. Keep your arguments concise and impactful, using clear, modern language. Ensure that your contributions add new dimensions to the discussion, steering clear of redundancy with previous speakers. Use Elon's speaking style, tone, language.
       Here are the arguments made by previous participants:
-      Steve Jobs: ${message1Finish || ""}
-      Elon Musk: ${message2Finish || ""}
-      Economist: ${message3Finish || ""}
-      Socrates: ${message.content || ""}
+      Aristotle: ${message1Finish || ""}
+      Steve Jobs: ${message2Finish || ""}
+      Carl Sagan: ${message3Finish || ""}
+      Leonardo da Vinci: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
       (keep it short, less than 80 words). Begin your argument:`,
     });
@@ -271,11 +276,30 @@ export default function NewDebate() {
   const onFinish5 = (message: Message) => {
     console.log("5 finish", message);
     setMessage5Finish(message.content);
+
+    append6({
+      role: "user",
+      // content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like the Leonardo da Vinci and make your arguments in his language, writing style, tone. Go direct to the point, pick a side and make your case. But, DO NOT  mention that you are da Vinici.
+      content: `You are participating in a important debate: ${debateTitle}. Assume the role of Madame Curie. Deliver your arguments with the meticulousness and determination that characterized Curie’s scientific endeavors. Use a tone of quiet confidence and unwavering commitment to truth and empirical evidence. Focus on the importance of rigorous research and ethical considerations in science. Bring a thoughtful, analytical perspective to the debate, introducing insights rooted in deep understanding and factual accuracy. Avoid duplicating existing points, instead enriching the conversation with profound observations if possible. You should sound like Madam Curie so use her speaking style, tone.
+      Here are the arguments made by previous participants:
+      Aristotle: ${message1Finish || ""}
+      Steve Jobs: ${message2Finish || ""}
+      Carl Sagan: ${message3Finish || ""}
+      Leonardo da Vinci: ${message.content || ""}
+      Elon Musk: ${message.content || ""}
+      Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
+      (keep it short, less than 80 words). Begin your argument:`,
+    });
+  };
+
+  const onFinish6 = (message: Message) => {
+    console.log("6 finish", message);
+    setMessage6Finish(message.content);
   };
 
   // AI debate agents
   const { messages: messages1, append: append1 } = useChat({
-    api: "/api/chat/llama",
+    api: "/api/chat/openai",
     onFinish: onFinish1,
   });
 
@@ -289,7 +313,7 @@ export default function NewDebate() {
   });
 
   const { messages: messages3, append: append3 } = useChat({
-    api: "/api/chat/openai",
+    api: "/api/chat/llama",
     onFinish: onFinish3,
   });
 
@@ -301,6 +325,11 @@ export default function NewDebate() {
   const { messages: messages5, append: append5 } = useChat({
     api: "/api/chat/mistral",
     onFinish: onFinish5,
+  });
+
+  const { messages: messages6, append: append6 } = useChat({
+    api: "/api/chat/openhermes",
+    onFinish: onFinish6,
   });
 
   // ###################################################################################################33
@@ -325,12 +354,24 @@ export default function NewDebate() {
 
       append1({
         role: "user",
-        content: `You are in a debate competition. Here is the title of the debate: ${debateTitle}. You are to act like Steve Jobs and make your argument. You are playing the character of Steve Jobs. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
+        // content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Steve Jobs. So say what Steve Jobs would say about the topic. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
+        // content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Aristotle. So, you have to make arguments from the perspective of Aristotle, in his tone, writing style.  Go direct to the point, pick a side and make your case. But, DO NOT  mention that you are Aristotle.`,
+        content: `You are participating in a critical debate: ${debateTitle}. Assume the role of Aristotle. Frame your arguments as Aristotle would, using his methodical reasoning, ethical considerations, and eloquent dialectics. Embrace his style of rigorous logic and structured dialogue, focusing on clarity and depth. Adopt a philosophical perspective, delving into the principles underlying the debate topic. Offer thoughtful analysis and reasoned arguments, steering clear of repeating points already made by others. Employ Aristotle's scholarly tone and persuasive rhetoric to advance your position convincingly.`,
       });
     } catch (error) {
       console.error(error);
     }
   };
+
+  // what I want it to look like
+  // Aristotle +++
+  // Steve Jobs +++
+  // Carl Sagan +++
+  // Elon Musk
+  // da Vinci +++
+  // madam curie
+  // Economist
+  // tagore
 
   // Carl Sagan
   // davinci
@@ -338,6 +379,7 @@ export default function NewDebate() {
   // Nelson Mandela
   // Aristotle Plato
   // madam curie //  ada lovelace
+  // Benjamin Franklin
 
   return (
     <div className="h-full min-h-screen  bg-slate-300">
@@ -473,9 +515,9 @@ export default function NewDebate() {
           <div className="px-4 mt-3">
             {messages1[1] && (
               <div className="w-full items-start mt-2 mb-3">
-                <div className="bg-blue-200 px-3 rounded-md w-9/12 ">
+                <div className="bg-blue-200 border border-blue-500 px-3 rounded-md w-9/12 ">
                   <span className="font-semibold text-sm m-0 pt-1">
-                    STEVE JOBS
+                    ARISTOTLE
                   </span>
                   <p className=" text-black">{messages1[1].content}</p>
                 </div>
@@ -484,9 +526,9 @@ export default function NewDebate() {
 
             {messages2[1] && (
               <div className="w-full flex flex-col items-end mb-3">
-                <div className="bg-green-200 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
+                <div className="bg-green-200 border border-green-500 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
                   <span className="font-semibold text-sm m-0 pt-1">
-                    ELON MUSK
+                    STEVE JOBS
                   </span>
                   <p className=" text-black">{messages2[1].content}</p>
                 </div>
@@ -495,9 +537,9 @@ export default function NewDebate() {
 
             {messages3[1] && (
               <div className="w-full items-start mb-3">
-                <div className="bg-violet-300 px-3 rounded-md w-9/12 ">
+                <div className="bg-violet-300 border border-violet-500 px-3 rounded-md w-9/12 ">
                   <span className="font-semibold text-sm m-0 pt-1">
-                    ECONOMIST
+                    CARL SAGAN
                   </span>
                   <p className=" text-black">{messages3[1].content}</p>
                 </div>
@@ -506,9 +548,9 @@ export default function NewDebate() {
 
             {messages4[1] && (
               <div className="w-full flex flex-col items-end mb-3">
-                <div className="bg-fuchsia-300 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
+                <div className="bg-fuchsia-300 border border-fuchsia-500 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
                   <span className="font-semibold text-sm m-0 pt-1">
-                    SOCRATES
+                    LEONARDO DA VINCI
                   </span>
                   <p className=" text-black">{messages4[1].content}</p>
                 </div>
@@ -517,11 +559,22 @@ export default function NewDebate() {
 
             {messages5[1] && (
               <div className="w-full items-start mb-8">
-                <div className="bg-orange-200 px-3 rounded-md w-9/12 ">
+                <div className="bg-orange-200 border border-orange-500 px-3 rounded-md w-9/12 ">
                   <span className="font-semibold text-sm m-0 pt-1">
-                    ARISTOTLE
+                    ELON MUSK
                   </span>
                   <p className=" text-black">{messages5[1].content}</p>
+                </div>
+              </div>
+            )}
+
+            {messages6[1] && (
+              <div className="w-full flex flex-col items-end mb-3">
+                <div className="bg-amber-200 border border-amber-500 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
+                  <span className="font-semibold text-sm m-0 pt-1">
+                    MADAM CURIE
+                  </span>
+                  <p className=" text-black">{messages6[1].content}</p>
                 </div>
               </div>
             )}
