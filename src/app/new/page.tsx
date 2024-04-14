@@ -372,7 +372,7 @@ export default function NewDebate() {
             <div className="flex flex-col w-full h-full justify-between px-4 py-6">
               <div className="flex flex-col w-2/3 m-auto">
                 <label className="font-semibold mb-1 text-gray-800">
-                  Title
+                  Debate Title
                   <span className="ml-1 text-red-600">*</span>
                 </label>
                 <input

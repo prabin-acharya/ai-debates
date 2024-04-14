@@ -14,6 +14,13 @@ export async function GET(request: NextRequest) {
     .bind("Bs Beverages")
     .all();
 
+  const { success } = await db.prepare("DROP TABLE IF EXISTS Debates").run();
+
+  const { success: a } = await db
+    .prepare("DROP TABLE IF EXISTS Arguments")
+    .run();
+  const { success: b } = await db.prepare("DROP TABLE IF EXISTS Users").run();
+
   console.log(results);
 
   return Response.json(results);
