@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
 
   const { results } = await db.prepare("SELECT * FROM Debates").all();
 
-  return Response.json(results);
+  return Response.json({ results });
 }
 
 export async function POST(request: NextRequest) {
@@ -19,5 +19,5 @@ export async function POST(request: NextRequest) {
 
   const { results } = await db.prepare("SELECT * FROM Debates").all();
 
-  return Response.json(results);
+  return Response.json({ results });
 }

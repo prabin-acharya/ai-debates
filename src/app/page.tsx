@@ -125,10 +125,13 @@ export default function Home() {
   //   },
   // ];
 
-  console.log(debates);
-  const debatesLength = debates.length;
-  const debates1 = debates.slice(0, debatesLength / 2);
-  const debates2 = debates.slice(debatesLength / 2, debatesLength);
+  let debates1: any = [];
+  let debates2: any = [];
+  if (debates && debates.length > 0) {
+    const debatesLength = debates.length;
+    debates1 = debates.slice(0, debatesLength / 2);
+    debates2 = debates.slice(debatesLength / 2, debatesLength);
+  }
 
   return (
     <main className="flex min-h-screen flex-col bg-slate-300">
@@ -147,50 +150,55 @@ export default function Home() {
         </nav>
 
         <div className="border border-red-950 min-h-96 pt-8 pb-40">
-          <Marquee pauseOnHover={true}>
-            {debates1.map((debate) => (
-              <div
-                key={debate.debateId}
-                onClick={() => router.push(`/debate/${debate.debateId}`)}
-                className="bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
-              >
-                <div className="w-64 h-20 relative m-auto py-2">
-                  <Image
-                    fill={true}
-                    className="absolute inset-0 rounded object-cover"
-                    src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/${debate.debateId}`}
-                    alt={"hello"}
-                  />
-                </div>
+          {debates && debates.length > 0 && (
+            <>
+              <Marquee pauseOnHover={true}>
+                {debates1.map((debate: any) => (
+                  <div
+                    key={debate.debateId}
+                    onClick={() => router.push(`/debate/${debate.debateId}`)}
+                    className="bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
+                  >
+                    <div className="w-64 h-20 relative m-auto py-2">
+                      <Image
+                        fill={true}
+                        className="absolute inset-0 rounded object-cover"
+                        src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/${debate.debateId}`}
+                        alt={"hello"}
+                      />
+                    </div>
 
-                <div className="w-full text-center">
-                  <p className="font-semibold mt-2">{debate.title}</p>
-                </div>
-              </div>
-            ))}
-          </Marquee>
-          <Marquee direction="right" pauseOnHover={true}>
-            {debates2.map((debate) => (
-              <div
-                key={debate.debateId}
-                onClick={() => router.push(`/debate/${debate.debateId}`)}
-                className="bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
-              >
-                <div className="w-64 h-20 relative m-auto py-2">
-                  <Image
-                    fill={true}
-                    className="absolute inset-0 rounded object-cover"
-                    src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/${debate.debateId}`}
-                    alt={"hello"}
-                  />
-                </div>
+                    <div className="w-full text-center">
+                      <p className="font-semibold mt-2">{debate.title}</p>
+                    </div>
+                  </div>
+                ))}
+              </Marquee>
+              <Marquee direction="right" pauseOnHover={true}>
+                {debates2.map((debate: any) => (
+                  <div
+                    key={debate.debateId}
+                    onClick={() => router.push(`/debate/${debate.debateId}`)}
+                    className="bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
+                  >
+                    <div className="w-64 h-20 relative m-auto py-2">
+                      <Image
+                        fill={true}
+                        className="absolute inset-0 rounded object-cover"
+                        src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/${debate.debateId}`}
+                        alt={"hello"}
+                      />
+                    </div>
 
-                <div className="w-full text-center">
-                  <p className="font-semibold mt-2">{debate.title}</p>
-                </div>
-              </div>
-            ))}
-          </Marquee>
+                    <div className="w-full text-center">
+                      <p className="font-semibold mt-2">{debate.title}</p>
+                    </div>
+                  </div>
+                ))}
+              </Marquee>
+            </>
+          )}
+
           {/* <div className="flex flex-wrap m-auto justify-center">
             {debates2.map((debate) => (
               <div
