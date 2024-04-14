@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 export default function NewDebate() {
   const [debateTitle, setDebateTitle] = useState("");
   const [debateId, setDebateId] = useState(null);
-  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [createButtonClicked, setCreateButtonClicked] = useState(false);
 
   const [message1Finish, setMessage1Finish] = useState("");
@@ -127,8 +127,8 @@ export default function NewDebate() {
       });
 
       console.log(response.data.debateId, "debateId from remote");
-      // set debate Id---------------
       setDebateId(response.data.debateId);
+      fetchDebateBannerImage(response.data.debateId);
 
       append1({
         role: "user",
@@ -139,25 +139,23 @@ export default function NewDebate() {
     }
   };
 
-  const fetchDebateBannerImage = async () => {
-    if (!debateId || !debateTitle) return;
+  const fetchDebateBannerImage = async (resDebateId: string) => {
+    // if (!debateId || !debateTitle) return;
+
+    if (!debateTitle) return;
+
+    console.log("generate image", debateId, debateTitle, resDebateId);
 
     try {
-      setIsImageLoading(true);
-
       const response = await axios.post("/api/image/", {
-        debateId: "prabin-test-debateId",
+        debateId: resDebateId,
         debateTitle,
       });
 
       console.log("image response", response.data);
-      // setImageUrl(response.data.imageUrl);
-
-      setIsImageLoading(false);
+      setIsImageLoaded(true);
     } catch (err) {
       console.log(err);
-    } finally {
-      setIsImageLoading(false);
     }
   };
 
@@ -273,16 +271,26 @@ export default function NewDebate() {
           )}
         </div>
 
-        {/* {createButtonClicked && ( */}
-        <div className="relative h-52 w-4/5 m-auto">
-          <Image
-            layout="fill"
-            objectFit="cover"
-            className="absolute inset-0 rounded-xl"
-            src="https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/prabin333"
-            alt={debateTitle}
-          />
-        </div>
+        {createButtonClicked && (
+          <>
+            {isImageLoaded ? (
+              <div className="relative h-52 w-4/5 m-auto">
+                <Image
+                  layout="fill"
+                  objectFit="cover"
+                  className="absolute inset-0 rounded-xl"
+                  src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/${debateId}`}
+                  alt={debateTitle}
+                />
+              </div>
+            ) : (
+              <>
+                <p>genearting banner image...</p>
+              </>
+            )}
+          </>
+        )}
+
         {/* )} */}
 
         {/*  */}

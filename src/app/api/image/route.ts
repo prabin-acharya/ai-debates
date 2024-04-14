@@ -25,10 +25,11 @@ export async function GET(request: NextRequest) {
 
 // generate and save image to R2
 export async function POST(request: NextRequest) {
-  console.log("--------------------------");
+  console.log("--------------------------++1image");
 
   const data: any = await request.json();
   const debateTitle = data.debateTitle;
+  const debateId = data.debateId;
 
   // generate image
   const ai = getRequestContext().env.AI;
@@ -43,13 +44,10 @@ export async function POST(request: NextRequest) {
   );
 
   // save image
-
-  // Create a ReadableStream reader
   const reader = response.getReader();
   const chunks = [];
   let totalBytes = 0;
 
-  // Read the data from the ReadableStream and calculate total bytes
   while (true) {
     const { done, value } = await reader.read();
     if (done) break;
@@ -57,7 +55,6 @@ export async function POST(request: NextRequest) {
     totalBytes += value.length;
   }
 
-  // Concatenate the data chunks into a single Uint8Array
   const imageData = new Uint8Array(totalBytes);
   let offset = 0;
   for (const chunk of chunks) {
@@ -66,17 +63,11 @@ export async function POST(request: NextRequest) {
   }
 
   const myBucket = getRequestContext().env.R2_BUCKET;
-  const key = data.debateId;
+  const key = debateId;
 
   const save = await myBucket.put(key, imageData.buffer, {
     metadata: { contentType: "image/png" },
   });
 
-  return Response.json({ success: true, key, save });
-
-  //   return new Response(response, {
-  //     headers: {
-  //       "content-type": "image/png",
-  //     },
-  //   });
+  return Response.json({ success: true, key: save.key });
 }
