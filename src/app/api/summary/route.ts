@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
 
   const response = await ai.run("@cf/facebook/bart-large-cnn", {
     input_text: debateDetail,
+    max_length: 2048,
   });
 
   const db = getRequestContext().env.DB;
