@@ -150,12 +150,10 @@ export default function Home() {
               >
                 <div className="w-64 h-20 relative m-auto py-2">
                   <Image
-                    // layout="fill"
-                    // objectFit="cover"
+                    fill={true}
                     className="absolute inset-0 rounded object-cover"
                     src={`https://pub-2f1faf404e074e64b3a0f184d00d15e4.r2.dev/${debate.debateId}`}
                     alt={"hello"}
-                    fill={true}
                   />
                 </div>
 
