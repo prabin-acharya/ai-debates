@@ -10,6 +10,8 @@ export const runtime = "edge";
 
 export default function Debate({ params }: { params: { debateId: string } }) {
   const [debateTitle, setDebateTitle] = useState("");
+  const [debateDescription, setDebateDescription] = useState("");
+
   const [debateArguments, setDebateArguments] = useState<any>([]);
   const [debateSummary, setDebateSummary] = useState<any>("");
 
@@ -33,6 +35,7 @@ export default function Debate({ params }: { params: { debateId: string } }) {
           );
 
         setDebateTitle(response.data.debate[0].title);
+        setDebateDescription(response.data.debate[0].description);
         setDebateArguments(args);
 
         const summaryArray =
@@ -116,7 +119,7 @@ export default function Debate({ params }: { params: { debateId: string } }) {
 
   return (
     <div className="h-full min-h-screen  bg-slate-300">
-      <div className="w-2/3 h-full mx-auto  border min-h-screen">
+      <div className="w-full md:w-2/3 h-full mx-auto  border min-h-screen">
         <nav className=" flex items-center px-2 pt-6 pb-4 justify-between border-b">
           <Link href={"/"}>
             <h1 className="text-2xl font-bold text-red-400">AI Debates</h1>
@@ -133,11 +136,16 @@ export default function Debate({ params }: { params: { debateId: string } }) {
           </div>
         </nav>
         {/*  */}
-        <div className="py-2">
+        <div className="py-2 pt-3">
           <div className="text-center">
             <p className="text-4xl font-semibold text-gray-800 font-serif">
               {debateTitle}
             </p>
+            {debateDescription.length > 1 && (
+              <p className="px-4 text-gray-800 font-serif">
+                {debateDescription}
+              </p>
+            )}
           </div>
         </div>
 

@@ -432,9 +432,7 @@ export default function NewDebate() {
 
   return (
     <div className="h-full min-h-screen  bg-slate-300">
-      {/* <div className="w-2/3 h-full m-auto pb-10 border  px-2 min-h-screen"> */}
-
-      <div className="w-2/3 mx-auto h-full border min-h-screen">
+      <div className="w-full md:w-2/3 mx-auto h-full border min-h-screen">
         <nav className=" flex items-center px-2 pt-6  pb-4 justify-between border-b">
           <Link href={"/"}>
             <h1 className="text-2xl font-bold text-red-400">AI Debates</h1>

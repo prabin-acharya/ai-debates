@@ -65,7 +65,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col bg-slate-300">
-      <div className="w-2/3 mx-auto h-full border min-h-screen">
+      <div className="w-full md:w-2/3 mx-auto h-full border min-h-screen">
         <nav className=" flex items-center px-2 pt-6 pb-4 justify-between border-b">
           <Link href={"/"}>
             <h1 className="text-2xl font-bold text-red-400">AI Debates</h1>
