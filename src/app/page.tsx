@@ -100,7 +100,7 @@ export default function Home() {
                   <div
                     key={debate.debateId}
                     onClick={() => router.push(`/debate/${debate.debateId}`)}
-                    className="w-21r h-48 bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
+                    className="w-21r h-36 bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
                   >
                     <div className="w-80 h-28 relative m-auto py-2">
                       <Image
@@ -126,7 +126,7 @@ export default function Home() {
                   <div
                     key={debate.debateId}
                     onClick={() => router.push(`/debate/${debate.debateId}`)}
-                    className="w-21r h-48 bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
+                    className="w-21r h-36 bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
                   >
                     <div className="w-80 h-28 relative m-auto py-2">
                       <Image
