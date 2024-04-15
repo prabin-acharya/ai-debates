@@ -23,6 +23,7 @@ export default function NewDebate() {
   const [message4Finish, setMessage4Finish] = useState("");
   const [message5Finish, setMessage5Finish] = useState("");
   const [message6Finish, setMessage6Finish] = useState("");
+  const [message7Finish, setMessage7Finish] = useState("");
 
   const [debateSummary, setDebateSummary] = useState("");
   const [isSummaryLoading, setIsSummaryLoading] = useState(false);
@@ -190,6 +191,30 @@ export default function NewDebate() {
       saveAgentsArgument("MADAM CURIE", message6Finish);
   }, [message6Finish, debateId]);
 
+  useEffect(() => {
+    const saveAgentsArgument = async (agentName: string, argument: string) => {
+      console.log(debateId);
+      if (!debateId) {
+        return;
+      }
+
+      try {
+        const response = await axios.post("/api/db/arguments", {
+          debateId,
+          agentName,
+          argument,
+        });
+
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (debateId && message7Finish.length > 1)
+      saveAgentsArgument("ECONOMIST", message7Finish);
+  }, [message7Finish, debateId]);
+
   // genearte and save Summray
   useEffect(() => {
     const generateSummary = async () => {
@@ -219,7 +244,7 @@ export default function NewDebate() {
       }
     };
 
-    if (debateId && message6Finish.length > 2) generateSummary();
+    if (debateId && message7Finish.length > 2) generateSummary();
   }, [
     message5Finish,
     debateId,
@@ -230,6 +255,7 @@ export default function NewDebate() {
     message4Finish,
     message3Finish,
     message6Finish,
+    message7Finish,
   ]);
 
   console.log(
@@ -334,7 +360,7 @@ export default function NewDebate() {
       Aristotle: ${message1Finish || ""}
       Steve Jobs: ${message2Finish || ""}
       Carl Sagan: ${message3Finish || ""}
-      Leonardo da Vinci: ${message.content || ""}
+      Leonardo da Vinci: ${message4Finish || ""}
       Elon Musk: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
       (keep it short, less than 60 words. Do NOT mention that you are Madam Curie. Go straight to your argument and make a clear, concise point). Begin your argument:`,
@@ -344,6 +370,24 @@ export default function NewDebate() {
   const onFinish6 = (message: Message) => {
     console.log("6 finish", message);
     setMessage6Finish(message.content);
+
+    append7({
+      role: "user",
+      content: `You are participating in a crucial debate: ${debateTitle}. Your role is that of an economist. Present your arguments with the analytical rigor and empirical evidence characteristic of economic analysis. Approach the topic from a perspective grounded in economic theory, considering factors such as incentives, market dynamics, and policy implications. Use clear, concise language to convey complex ideas, ensuring accessibility to all participants. Offer novel insights and economic perspectives that contribute to the depth of the discussion. Avoid redundancy by building upon, rather than repeating, previous points made by others. Advocate for your position with the authority and expertise expected of an economist, enriching the debate with informed analysis and reasoned argumentation.
+      Here are the arguments made by previous participants:
+      Aristotle: ${message1Finish || ""}
+      Steve Jobs: ${message2Finish || ""}
+      Carl Sagan: ${message3Finish || ""}
+      Leonardo da Vinci: ${message4Finish || ""}
+      Elon Musk: ${message5Finish || ""}
+      Madam Curie: ${message.content || ""}
+      (keep it short, less than 60 words. Do NOT mention that you are an economist. Go straight to your argument and make a clear, concise point). Begin your argument:`,
+    });
+  };
+
+  const onFinish7 = (message: Message) => {
+    console.log("7 finish", message);
+    setMessage7Finish(message.content);
   };
 
   // AI debate agents
@@ -357,12 +401,12 @@ export default function NewDebate() {
     append: append2,
     isLoading,
   } = useChat({
-    api: "/api/chat/llama13",
+    api: "/api/chat/llama",
     onFinish: onFinish2,
   });
 
   const { messages: messages3, append: append3 } = useChat({
-    api: "/api/chat/llama",
+    api: "/api/chat/llama13",
     onFinish: onFinish3,
   });
 
@@ -379,6 +423,11 @@ export default function NewDebate() {
   const { messages: messages6, append: append6 } = useChat({
     api: "/api/chat/openhermes",
     onFinish: onFinish6,
+  });
+
+  const { messages: messages7, append: append7 } = useChat({
+    api: "/api/chat/gpt",
+    onFinish: onFinish7,
   });
 
   // ###################################################################################################33
@@ -405,7 +454,7 @@ export default function NewDebate() {
         role: "user",
         // content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Steve Jobs. So say what Steve Jobs would say about the topic. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
         // content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Aristotle. So, you have to make arguments from the perspective of Aristotle, in his tone, writing style.  Go direct to the point, pick a side and make your case. But, DO NOT  mention that you are Aristotle.`,
-        content: `You are participating in a critical debate: ${debateTitle}. Assume the role of Aristotle. Frame your arguments as Aristotle would, using his methodical reasoning, ethical considerations, and eloquent dialectics. Embrace his style of rigorous logic and structured dialogue, focusing on clarity and depth. Adopt a philosophical perspective, delving into the principles underlying the debate topic. Offer thoughtful analysis and reasoned arguments, steering clear of repeating points already made by others. Employ Aristotle's scholarly tone and persuasive rhetoric to advance your position convincingly. (keep it short, less than 60 words, DO NOT mention that you are Aristotle. Go straight to your argument and make a clear, concise point). Begin your argument:`,
+        content: `You are participating in a critical debate: ${debateTitle}. Assume the role of Aristotle. Frame your arguments as Aristotle would, using his methodical reasoning, ethical considerations, and eloquent dialectics. Embrace his style of rigorous logic and structured dialogue, focusing on clarity and depth. Adopt a philosophical perspective, delving into the principles underlying the debate topic. Offer thoughtful analysis and reasoned arguments, steering clear of repeating points already made by others. Employ Aristotle's scholarly tone and persuasive rhetoric to advance your position convincingly. (keep it short, less than 80 words, DO NOT mention that you are Aristotle. Go straight to your argument and make a clear, concise point). Begin your argument:`,
       });
     } catch (error) {
       console.error(error);
@@ -622,6 +671,17 @@ export default function NewDebate() {
                     MADAM CURIE
                   </span>
                   <p className=" text-black">{messages6[1].content}</p>
+                </div>
+              </div>
+            )}
+
+            {messages7[1] && (
+              <div className="w-full flex flex-col items-end mb-3">
+                <div className="bg-emerald-300 border border-emerald-500 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
+                  <span className="font-semibold text-sm m-0 pt-1">
+                    ECONOMIST
+                  </span>
+                  <p className=" text-black">{messages7[1].content}</p>
                 </div>
               </div>
             )}
