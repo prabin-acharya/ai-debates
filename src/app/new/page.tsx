@@ -267,7 +267,7 @@ export default function NewDebate() {
       content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You will embody Steve Jobs. Approach the topic as Jobs would, leveraging his distinctive speaking style, tone, and perspective. Be assertive and clear, choosing a definitive stance on the issue. Enhance the dialogue by introducing novel viewpoints or arguments, avoiding redundancy with prior statements. Emulate Jobs' characteristic directness, and inspirational tone to convincingly argue your position. Be direct, clear and concise.
       Here are the arguments made by previous participants:
       Aristotle: ${message.content || ""}
-      (keep it short, less than 80 words. Do NOT mention that you are Steve Jobs). Begin your argument:`,
+      (keep it short, less than 60 words. Do NOT mention that you are Steve Jobs. Go straight to your argument and make a clear, concise point). Begin your argument:`,
     });
   };
 
@@ -283,7 +283,7 @@ export default function NewDebate() {
       Aristotle: ${message1Finish || ""}
       Steve Jobs: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
-      (keep it short, less than 90 words. Do NOT mention that you are Carl Sagan). Begin your argument:`,
+      (keep it short, less than 60 words. Do NOT mention that you are Carl Sagan. Go straight to your argument and make a clear, concise point). Begin your argument:`,
     });
   };
 
@@ -300,7 +300,7 @@ export default function NewDebate() {
       Steve Jobs: ${message2Finish || ""}
       Carl Sagan: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
-      (keep it short, less than 90 words. Do NOT mention that you are Leondardo da Vinci). Begin your argument:`,
+      (keep it short, less than 60 words. Do NOT mention that you are Leondardo da Vinci. Go straight to your argument and make a clear, concise point). Begin your argument:`,
     });
   };
 
@@ -318,7 +318,7 @@ export default function NewDebate() {
       Carl Sagan: ${message3Finish || ""}
       Leonardo da Vinci: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
-      (keep it short, less than 90 words. Do NOT mention that you are Elon Musk). Begin your argument:`,
+      (keep it short, less than 60 words. Do NOT mention that you are Elon Musk. Go straight to your argument and make a clear, concise point). Begin your argument:`,
     });
   };
 
@@ -337,7 +337,7 @@ export default function NewDebate() {
       Leonardo da Vinci: ${message.content || ""}
       Elon Musk: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
-      (keep it short, less than 90 words. Do NOT mention that you are Madam Curie). Begin your argument:`,
+      (keep it short, less than 60 words. Do NOT mention that you are Madam Curie. Go straight to your argument and make a clear, concise point). Begin your argument:`,
     });
   };
 
@@ -405,7 +405,7 @@ export default function NewDebate() {
         role: "user",
         // content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Steve Jobs. So say what Steve Jobs would say about the topic. Go direct to the point, pick a side and make your case. Say it in the tone of how Steve Jobs used to speak.(keep it short, less than 80 words). Begin your argument:`,
         // content: `You are taking part in a very important debate competition. Here is the title of the debate: ${debateTitle}. You are playing the character of Aristotle. So, you have to make arguments from the perspective of Aristotle, in his tone, writing style.  Go direct to the point, pick a side and make your case. But, DO NOT  mention that you are Aristotle.`,
-        content: `You are participating in a critical debate: ${debateTitle}. Assume the role of Aristotle. Frame your arguments as Aristotle would, using his methodical reasoning, ethical considerations, and eloquent dialectics. Embrace his style of rigorous logic and structured dialogue, focusing on clarity and depth. Adopt a philosophical perspective, delving into the principles underlying the debate topic. Offer thoughtful analysis and reasoned arguments, steering clear of repeating points already made by others. Employ Aristotle's scholarly tone and persuasive rhetoric to advance your position convincingly. (keep it short, less than 90 words, DO NOT mention that you are Aristotle). Begin your argument:`,
+        content: `You are participating in a critical debate: ${debateTitle}. Assume the role of Aristotle. Frame your arguments as Aristotle would, using his methodical reasoning, ethical considerations, and eloquent dialectics. Embrace his style of rigorous logic and structured dialogue, focusing on clarity and depth. Adopt a philosophical perspective, delving into the principles underlying the debate topic. Offer thoughtful analysis and reasoned arguments, steering clear of repeating points already made by others. Employ Aristotle's scholarly tone and persuasive rhetoric to advance your position convincingly. (keep it short, less than 60 words, DO NOT mention that you are Aristotle. Go straight to your argument and make a clear, concise point). Begin your argument:`,
       });
     } catch (error) {
       console.error(error);
