@@ -104,8 +104,8 @@ export default function Debate({ params }: { params: { debateId: string } }) {
     "bg-fuchsia-300",
     "bg-slate-200",
     "bg-orange-200",
-    "bg-pink-200",
     "bg-emerald-300",
+    "bg-pink-200",
   ];
 
   const debateArgumensBorders = [
@@ -115,8 +115,8 @@ export default function Debate({ params }: { params: { debateId: string } }) {
     "border-fuchsia-500",
     "border-slate-500",
     "border-orange-500",
-    "border-pink-500",
     "border-emerald-500",
+    "border-pink-500",
   ];
 
   return (

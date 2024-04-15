@@ -363,7 +363,7 @@ export default function NewDebate() {
       Leonardo da Vinci: ${message4Finish || ""}
       Elon Musk: ${message.content || ""}
       Try to add to the discussion, rather than simply repeating the same thing said by previous participants.
-      (keep it short, less than 60 words. Do NOT mention that you are Madam Curie. Go straight to your argument and make a clear, concise point). Begin your argument:`,
+      (keep it short, less than 80 words. Do NOT mention that you are Madam Curie. Go straight to your argument and make a clear, concise point). Begin your argument:`,
     });
   };
 
@@ -676,8 +676,8 @@ export default function NewDebate() {
             )}
 
             {messages7[1] && (
-              <div className="w-full flex flex-col items-end mb-3">
-                <div className="bg-emerald-300 border border-emerald-500 px-3 rounded-md w-9/12 flex flex-col flex-end items-end">
+              <div className="w-full items-start mb-8">
+                <div className="bg-emerald-200 border border-emerald-500 px-3 rounded-md w-9/12 ">
                   <span className="font-semibold text-sm m-0 pt-1">
                     ECONOMIST
                   </span>
