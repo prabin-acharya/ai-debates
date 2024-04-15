@@ -100,7 +100,7 @@ export default function Home() {
                   <div
                     key={debate.debateId}
                     onClick={() => router.push(`/debate/${debate.debateId}`)}
-                    className="w-96 h-52 bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
+                    className="w-21r h-52 bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
                   >
                     <div className="w-80 h-28 relative m-auto py-2">
                       <Image
@@ -111,7 +111,7 @@ export default function Home() {
                       />
                     </div>
 
-                    <div className="w-full text-center">
+                    <div className="w-full text-center h-full border border-blue-600 items-center justify-center">
                       <p className="font-semibold mt-2 text-lg text-gray-800 break-words">
                         {debate.title && debate.title.length > 40
                           ? `${debate.title.slice(0, 40)}...`
@@ -126,7 +126,7 @@ export default function Home() {
                   <div
                     key={debate.debateId}
                     onClick={() => router.push(`/debate/${debate.debateId}`)}
-                    className="w-96  h-52 bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
+                    className="w-21r h-52 bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
                   >
                     <div className="w-80 h-28 relative m-auto py-2">
                       <Image
@@ -137,7 +137,7 @@ export default function Home() {
                       />
                     </div>
 
-                    <div className="w-full text-center">
+                    <div className="w-full text-center h-full border border-blue-600 items-center justify-center">
                       <p className="font-semibold mt-2 text-lg text-gray-800 break-words">
                         {debate.title && debate.title.length > 40
                           ? `${debate.title.slice(0, 40)}...`
