@@ -88,6 +88,11 @@ export default function Home() {
         </nav>
 
         <div className="  min-h-96 pt-8 pb-40">
+          <div>
+            <span className="px-3 font-semibold text-sm text-gray-600">
+              EXPLORE DEBATES
+            </span>
+          </div>
           {debates && debates.length > 0 && (
             <>
               <Marquee pauseOnHover={true}>
@@ -108,7 +113,9 @@ export default function Home() {
 
                     <div className="w-full text-center">
                       <p className="font-semibold mt-2 text-lg text-gray-800 break-words">
-                        {debate.title}
+                        {debate.title && debate.title.length > 40
+                          ? `${debate.title.slice(0, 40)}...`
+                          : debate.title}
                       </p>
                     </div>
                   </div>
@@ -119,7 +126,7 @@ export default function Home() {
                   <div
                     key={debate.debateId}
                     onClick={() => router.push(`/debate/${debate.debateId}`)}
-                    className="bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
+                    className="w-80 bg-gray-200-400 px-2  py-2 m-2 rounded-md inline-block cursor-pointer shadow-md hover:shadow-slate-400"
                   >
                     <div className="w-80 h-28 relative m-auto py-2">
                       <Image
@@ -131,8 +138,10 @@ export default function Home() {
                     </div>
 
                     <div className="w-full text-center">
-                      <p className="font-semibold mt-2 text-lg text-gray-800">
-                        {debate.title}
+                      <p className="font-semibold mt-2 text-lg text-gray-800 break-words">
+                        {debate.title && debate.title.length > 40
+                          ? `${debate.title.slice(0, 40)}...`
+                          : debate.title}
                       </p>
                     </div>
                   </div>
