@@ -6,7 +6,9 @@ AI debates is an ai-powered debate platform. Users can add debate or discussion 
 
 - Cloudflare Pages
 - Cloudflare Workers
-- Workers AI Models
+- Cloudflare Workers AI Models
 - Cloudflare D1 database
 - Cloudflare R2 for image storage
 - Nextjs, TailwindsCSS
+
+## What's Next

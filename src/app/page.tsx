@@ -111,7 +111,7 @@ export default function Home() {
                       />
                     </div>
 
-                    <div className="w-full text-center h-full border border-blue-600 flex items-center justify-center">
+                    <div className="w-full text-center  border border-blue-600 flex items-center justify-center">
                       <p className="font-semibold mt-2 text-lg text-gray-800 break-words">
                         {debate.title && debate.title.length > 40
                           ? `${debate.title.slice(0, 40)}...`
@@ -137,7 +137,7 @@ export default function Home() {
                       />
                     </div>
 
-                    <div className="w-full text-center h-full border border-blue-600 flex items-center justify-center">
+                    <div className="w-full text-center border border-blue-600 flex items-center justify-center">
                       <p className="font-semibold mt-2 text-lg text-gray-800 break-words">
                         {debate.title && debate.title.length > 40
                           ? `${debate.title.slice(0, 40)}...`
