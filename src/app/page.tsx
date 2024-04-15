@@ -107,7 +107,7 @@ export default function Home() {
                     </div>
 
                     <div className="w-full text-center">
-                      <p className="font-semibold mt-2 text-lg text-gray-800">
+                      <p className="font-semibold mt-2 text-lg text-gray-800 break-words">
                         {debate.title}
                       </p>
                     </div>
