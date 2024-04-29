@@ -1,5 +1,5 @@
 # AI-Debates
-
+ [ai-debates.pages.dev](https://ai-debates.pages.dev/)  
 AI debates is an ai-powered debate platform. Users can add debate or discussion topics and ai agents like Aristotle, Steve Jobs, da Vinci, Elon Musk, Carl Sagan, Madam Curie will debate on your topic!!
 
 ## Built with:
